@@ -1,23 +1,32 @@
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
-// import HelloWorld from './components/HelloWorld.vue'
+import TheButtonjyjVue from '@/components/TheButtonjyj.vue'
+
+export default defineComponent({
+    setup() {
+    },
+    components: { TheButtonjyjVue, RouterLink, RouterView }
+})
 </script>
 
 <template>
-  <header>
-    <div>
-      <nav>
-        <RouterLink to="/">Homee</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
+  <section class="flex items-center justify-center text-center mt-4">  
+  <header class="flex gap-8">
+    <RouterLink to="/">
+      <div>imagen</div>
+    </RouterLink>
+    <nav class="flex gap-8 items-cemter text-center justify-center mt-2">
+      <RouterLink to="/Advertisements">Anuncios</RouterLink>
+      <RouterLink to="/Ingresar">Ingresar</RouterLink>
+      <RouterLink to="/Us">Nosotros</RouterLink>
+      <RouterLink to="/Contact">Contacto</RouterLink>
+      <RouterLink to="/Leases">Arriendos</RouterLink>
+      <RouterLink to="/Sales">Ventas</RouterLink>
+    </nav>
+    <TheButtonjyjVue texto="Publica gratis" />
   </header>
+</section>
 
   <RouterView />
 </template>
-
-<style scoped>
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-</style>

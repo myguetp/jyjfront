@@ -19,3 +19,9 @@ export default defineComponent({
 <template>
   <button type="button" class="bg-blue-600 text-white w-[200px] h-[50px] rounded-md" @click="OnClick"> {{ texto }} </button>
 </template>
+
+<style scoped>
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+</style>
