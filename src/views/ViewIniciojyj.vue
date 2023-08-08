@@ -1,14 +1,16 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
+import MainLayout from '../layouts/MainLayout.vue'
 
 export default defineComponent({
+  components: {MainLayout},
   setup() {
     return {}
   },
 })
 </script>
 <template>
-  <div>
-    hola mundo
-  </div>
+  <MainLayout>
+    <p>hola inicio</p>
+  </MainLayout>
 </template>
