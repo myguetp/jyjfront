@@ -1,9 +1,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import MainLayout from '../layouts/MainLayout.vue'
+import Staryjyj from './components/inicio/Staryjyj.vue'
 
 export default defineComponent({
-  components: {MainLayout},
+  components: {MainLayout, Staryjyj},
   setup() {
     return {}
   },
@@ -11,6 +12,6 @@ export default defineComponent({
 </script>
 <template>
   <MainLayout>
-    <p>hola inicio</p>
+    <Staryjyj />
   </MainLayout>
 </template>
