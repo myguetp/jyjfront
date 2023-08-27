@@ -1,12 +1,18 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import TheButtonjyjVue from '../components/TheButtonjyj.vue'
+import Modaljyj from './Modaljyj.vue'
 
 export default defineComponent({
-    setup() {
+  setup() {
+      const modalOpen = ref(false)
+      const openModal = () => {
+        modalOpen.value = true
+      }
+      return {modalOpen, openModal}
     },
-    components: { TheButtonjyjVue, RouterLink, RouterView }
+    components: { TheButtonjyjVue, RouterLink, RouterView, Modaljyj }
 })
 </script>
 
@@ -25,14 +31,37 @@ export default defineComponent({
       <RouterLink to="/Leases">Arriendos</RouterLink>
       <RouterLink to="/Sales">Ventas</RouterLink>
     </nav>
-    <div class="mt-6">
+    <div class="mt-6 cursor-pointer" @click="openModal">
     <p>Ingresar</p>
     </div>
     <div class="flex gap-4 mt-2">
-    <TheButtonjyjVue texto="Publica gratis" />
+      <RouterLink to="/SalesLeases"><TheButtonjyjVue texto="Publica gratis" /></RouterLink>
+    
     </div>
   </header>
 </section>
+  <Modaljyj :isOpen="modalOpen" @update:is-open="modalOpen = $event" titulo='J&J CONJUNTOS'>
+    <div class="flex gap-2 h-auto mt-4">
+      <div class="bg-blue-100 w-[40%]">
+        <img src="@/assets/img/empresa.jpeg" alt="" class="w-full h-full">
+      </div>
+      <div class="flex w-[50%] justify-center items-center text-center">
+      <div class="block gap-y-4 w-[100%]">
+        <p class="text-xl">Iniciar Sesión</p>
+        <input type="text" placeholder="Ingrese su usuario " class="border border-black-1 rounded-md mt-2 h-[62px] w-[300px] placeholder-center" />
+        <input type="password" placeholder="Ingrese su contraseña" class="border border-black-1 rounded-md mt-4 h-[62px] w-[300px] placeholder-center" />
+        <div class="flex justify-end">
+          <a class="font-bold text-sm cursor-pointer">¿Olvidó su contraseña?</a>
+        </div>
+        <div class="flex justify-center mt-4">
+        <TheButtonjyjVue texto="Ingresar"/>
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </Modaljyj>
 
   <RouterView />
 </template>
+

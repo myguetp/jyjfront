@@ -6,9 +6,10 @@ import IconInstagram from '@/components/icons/IconInstagram.vue'
 import IconPinterest from '@/components/icons/IconPinterest.vue'
 import IconYoutube from '@/components/icons/IconYouTube.vue'
 import IconLinkedin from '@/components/icons/IconLinkedin.vue'
+import Siningtj from './Siningtj.vue'
 
 export default defineComponent({
-  components: { TheButtonjyj, IconFacebook, IconInstagram, IconPinterest, IconYoutube, IconLinkedin },
+  components: { TheButtonjyj, IconFacebook, IconInstagram, IconPinterest, IconYoutube, IconLinkedin, Siningtj },
   setup() {
     return {}
   },
@@ -47,5 +48,6 @@ export default defineComponent({
       </section>
     </div>
   </footer>
+  <Siningtj />
   </section>
 </template>
