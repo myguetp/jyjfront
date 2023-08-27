@@ -1,4 +1,5 @@
 <script lang="ts">
+import IconExit from'@/components/icons/IconExit.vue'
 export default {
   props: {
     isOpen: Boolean,
@@ -7,6 +8,7 @@ export default {
       required: true
     }
   },
+  components: { IconExit },
   setup(props, { emit }) {
     const closeModal = () => {
       emit('update:isOpen', false);
@@ -24,7 +26,7 @@ export default {
     </div>
     <div class="bg-white p-6 rounded shadow-md w-[650px] h-[400px] drop-shadow-xl">
       <div class="flex justify-end">
-      <button @click="closeModal" >Cerrar</button>
+      <button @click="closeModal" ><IconExit /> </button>
       </div>
       <div class="flex justify-center ">
       <h2 class="text-2xl">{{titulo}}</h2>

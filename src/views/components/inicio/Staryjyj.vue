@@ -6,10 +6,9 @@ import IconInstagram from '@/components/icons/IconInstagram.vue'
 import IconPinterest from '@/components/icons/IconPinterest.vue'
 import IconYoutube from '@/components/icons/IconYouTube.vue'
 import IconLinkedin from '@/components/icons/IconLinkedin.vue'
-import Siningtj from './Siningtj.vue'
 
 export default defineComponent({
-  components: { TheButtonjyj, IconFacebook, IconInstagram, IconPinterest, IconYoutube, IconLinkedin, Siningtj },
+  components: { TheButtonjyj, IconFacebook, IconInstagram, IconPinterest, IconYoutube, IconLinkedin },
   setup() {
     return {}
   },
