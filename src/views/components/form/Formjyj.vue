@@ -13,7 +13,6 @@ export default defineComponent({
       try {
         const response = await getOfert();
         apiData.value = response.data;
-        console.log(response.data)
       } catch (error) {
         // Manejar el error según sea necesario
       }
