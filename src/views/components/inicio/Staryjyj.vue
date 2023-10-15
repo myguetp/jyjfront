@@ -1,5 +1,7 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
+import { getSales } from '../../../services/SalesSerive'
+
 import TheButtonjyj from '@/components/TheButtonjyj.vue'
 import IconFacebook from '@/components/icons/IconFacebook.vue'
 import IconInstagram from '@/components/icons/IconInstagram.vue'
@@ -7,10 +9,22 @@ import IconPinterest from '@/components/icons/IconPinterest.vue'
 import IconYoutube from '@/components/icons/IconYouTube.vue'
 import IconLinkedin from '@/components/icons/IconLinkedin.vue'
 
+
 export default defineComponent({
   components: { TheButtonjyj, IconFacebook, IconInstagram, IconPinterest, IconYoutube, IconLinkedin },
   setup() {
-    return {}
+
+    const apiData = ref([])
+    const fetchData = async () => {
+      const res = await getSales();
+      const data = await res
+      console.log(data)
+    } 
+    onMounted(() => {
+      fetchData()
+    })
+
+    return {fetchData, apiData}
   },
 })
 </script>
@@ -20,6 +34,7 @@ export default defineComponent({
     <div class="flex  items-center gap-10 ">
       <div class="flex items-center w-[850px] p-10">
         <div class="block items-center ml-16">
+          {{ apiData }}
           <h2 class="text-[40px] font-bold">Creamos produtos </h2>
           <h2 class="text-[40px] font-bold">digitales para tu conjunto </h2>
           <h2 class="text-[40px] font-bold">y/o edificioresidencial</h2>

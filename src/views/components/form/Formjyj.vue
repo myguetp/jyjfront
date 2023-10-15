@@ -1,25 +1,34 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import Selectjyj from '../../../components/Selectjyj.vue'
 import TheButtonjyj from '../../../components/TheButtonjyj.vue'
 import IconImages from '@/components/icons/IconImages.vue'
+import { getOfert } from '../../../services/SalesSerive'
 
 export default defineComponent({
   components: { TheButtonjyj, Selectjyj, IconImages },
   setup() {
-    const options = ['A', 'B', 'C', 'D']
+    const apiData = ref([])
+    const fetchData = async () => {
+      try {
+        const response = await getOfert();
+        apiData.value = response.data;
+        console.log(response.data)
+      } catch (error) {
+        // Manejar el error según sea necesario
+      }
+    };
+
+  
     const oferta = 'Tipo de oferta'
-    const inmueble = 'Tipo de inmueble'
-    const estrato = 'Estrato'
-    const antiguedad = 'Ubicación del inmueble'
-    const ubicacion = 'Antigüedad del inmueble'
+
+
+    onMounted(() => {
+      fetchData()
+    })
     return {
       oferta,
-      inmueble,
-      estrato,
-      antiguedad,
-      ubicacion,
-      options
+      apiData
     }
   }
 })
@@ -30,13 +39,11 @@ export default defineComponent({
       <p class="text-[30px] underline underline-offset-8 font-bold">Publica tu inmueble</p>
       <section class="flex gap-4">
         <div class="block w-[30%] mt-32">
-          <Selectjyj :options="options" placeholder="oferta" />
-          <Selectjyj :options="options" placeholder="inmueble" />
-          <Selectjyj :options="options" placeholder="estrato" />
-          <Selectjyj :options="options" placeholder="antiguedad" />
+          {{ apiData }}
+          <Selectjyj :options="apiData" placeholder="oferta" />
         </div>
         <div class="block w-[30%] mt-16">
-          <Selectjyj :options="options" :placeholder="ubicacion" />
+          <!-- <Selectjyj :options="options" :placeholder="ubicacion" /> -->
           <div class="mt-2">
             <label
               for="fileInput"
