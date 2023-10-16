@@ -1,5 +1,13 @@
+<template>
+  <select v-model="selected" class="border border-black-1 w-full h-[68px] rounded rounded-md mt-3">
+    <option :value="null" disabled hidden>{{ placeholder }}</option>
+    <option v-for="option in options" :key="String(option)" :value="option">{{ option }}</option>
+  </select>
+</template>
+
 <script lang="ts">
-import { ref } from 'vue'
+import { ref, toRefs } from 'vue'
+
 export default {
   props: {
     placeholder: {
@@ -9,14 +17,10 @@ export default {
     options: Array
   },
   setup(props, { emit }) {
-    const selected = ref(null);
+    const { placeholder } = toRefs(props);
+    const selected = ref(placeholder.value);
+
     return { selected }
-   }
+  }
 }
 </script>
-<template>
-  <select v-model="selected" class="border border-black-1 w-full h-[68px] rounded rounded-md mt-3">
-    <option disabled value="">{{ placeholder }} </option>
-    <Option v-for="option in options" :key="option" :value="option" :label="option"/>
-  </select>
-</template>

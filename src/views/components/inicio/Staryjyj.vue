@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
-import { getSales } from '../../../services/SalesSerive'
+import { getSales } from '../../../services/api/SalesSerive'
 
 import TheButtonjyj from '@/components/TheButtonjyj.vue'
 import IconFacebook from '@/components/icons/IconFacebook.vue'
@@ -34,7 +34,6 @@ export default defineComponent({
     <div class="flex  items-center gap-10 ">
       <div class="flex items-center w-[850px] p-10">
         <div class="block items-center ml-16">
-          {{ apiData }}
           <h2 class="text-[40px] font-bold">Creamos produtos </h2>
           <h2 class="text-[40px] font-bold">digitales para tu conjunto </h2>
           <h2 class="text-[40px] font-bold">y/o edificioresidencial</h2>
@@ -64,4 +63,4 @@ export default defineComponent({
   </footer>
   <Siningtj />
   </section>
-</template>
+</template>../../../services/api/SalesSerive
