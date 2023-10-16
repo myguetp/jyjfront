@@ -1,33 +1,40 @@
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
-import Selectjyj from '../../../components/Selectjyj.vue'
+import { defineComponent, onMounted } from 'vue'
 import TheButtonjyj from '../../../components/TheButtonjyj.vue'
-import IconImages from '@/components/icons/IconImages.vue'
-import { getOfert } from '../../../services/SalesSerive'
+import { useQueryOferData } from './useQueryOferData'
+import {
+  Select as FLowSelect,
+  Input as FlowInput,
+  Textarea as FlowTexarea,
+  FileInput
+} from 'flowbite-vue'
+import { useQueryStratumData } from './useQueryStratumData'
 
 export default defineComponent({
-  components: { TheButtonjyj, Selectjyj, IconImages },
+  components: { TheButtonjyj, FileInput, FLowSelect, FlowInput, FlowTexarea },
   setup() {
-    const apiData = ref([])
-    const fetchData = async () => {
-      try {
-        const response = await getOfert();
-        apiData.value = response.data;
-      } catch (error) {
-        // Manejar el error según sea necesario
+    const { data: apiStratum } = useQueryStratumData()
+    const { data: apiOffer } = useQueryOferData()
+
+    const getOfferNames = () => {
+      if (apiOffer && apiOffer.value && apiOffer.value.data) {
+        return apiOffer.value.data.map((item: any) => ({ id: item.id, name: item.name }))
       }
-    };
+      return []
+    }
 
-  
-    const oferta = 'Tipo de oferta'
+    const getStratumNames = () => {
+      if (apiStratum && apiStratum.value && apiStratum.value.data) {
+        return apiStratum.value.data.map((item: any) => ({ id: item.id, name: item.name }))
+      }
+      return []
+    }
 
-
-    onMounted(() => {
-      fetchData()
-    })
+    onMounted(() => {})
     return {
-      oferta,
-      apiData
+      getOfferNames,
+      getStratumNames,
+      apiOffer
     }
   }
 })
@@ -38,69 +45,43 @@ export default defineComponent({
       <p class="text-[30px] underline underline-offset-8 font-bold">Publica tu inmueble</p>
       <section class="flex gap-4">
         <div class="block w-[30%] mt-32">
-          {{ apiData }}
-          <Selectjyj :options="apiData" placeholder="oferta" />
+          <FLowSelect class="h-[68px]" :options="getOfferNames()" placeholder="Tipo de oferta"></FLowSelect>
+          <FLowSelect class="h-[68px]" :options="getStratumNames()" placeholder="Estrato"></FLowSelect>
+          <FLowSelect class="h-[68px]" :options="getOfferNames()" placeholder="Tipo de oferta"></FLowSelect>
+          <FLowSelect class="h-[68px]" :options="getStratumNames()" placeholder="Estrato"></FLowSelect>
+
         </div>
         <div class="block w-[30%] mt-16">
-          <!-- <Selectjyj :options="options" :placeholder="ubicacion" /> -->
           <div class="mt-2">
-            <label
-              for="fileInput"
-              class="border border-black-2 h-[290px] w-full rounded rounded-md cursor-pointer text-center flex items-center justify-center"
+            <FileInput
+              :dropzone="true"
+              class="border border-black-4 h-[290px] w-full rounded rounded-md cursor-pointer text-center flex items-center justify-center"
             >
-              <span class="text-gray-500 flex-center">
-                <div>
-                  <IconImages />
-                </div>
-              </span>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                class="border border-black-2 h-[290px] w-full rounded rounded-md p-0 cursor-pointer opacity-0 bg-red-600"
-              />
-            </label>
+              <p class="!mt-1 text-xs text-gray-500 dark:text-gray-400">
+                SVG, PNG, JPG or GIF (MAX. 800x400px)
+              </p>
+            </FileInput>
           </div>
         </div>
         <div class="block w-[30%]">
-          <input
-            v-model="message"
-            placeholder="Precio"
-            class="border border-black-2 w-full h-[68px] rounded rounded-md"
-          />
-          <input
-            v-model="message"
-            placeholder="valor administración"
-            class="border border-black-2 w-full h-[68px] rounded rounded-md mt-2"
-          />
-          <input
-            v-model="message"
-            placeholder="Área construída"
-            class="border border-black-2 w-full h-[68px] rounded rounded-md mt-2"
-          />
-          <textarea
-            v-model="message"
-            placeholder="Descripción del inmueble"
-            class="border border-black-2 w-full h-[220px] rounded rounded-md mt-2 resize-none"
-          />
+          <FlowInput class="w-full h-[68px] mt-2 rounded-md" placeholder="Precio" />
+          <FlowInput class="w-full h-[68px] mt-2 rounded-md" placeholder="valor administración" />
+          <FlowInput class="w-full h-[68px] mt-2 rounded-md" placeholder="Área construída" />
+          <!-- <FlowTexarea  class=" w-full h-[220px] rounded rounded-md mt-4 resize-none" placeholder="Descripción del inmueble" /> -->
+          <div class="mt-4">
+            <FlowTexarea
+              class="w-full h-[280px] rounded rounded-md resize-none"
+              placeholder="Descripción del inmueble"
+              label=""
+            />
+          </div>
         </div>
       </section>
       <section class="mt-4 flex justify-center gap-4">
-        <input
-          v-model="message"
-          class="border border-black-2 rounded rounded-md"
-          placeholder="Nombre de contacto"
-        />
-        <input
-          v-model="message"
-          class="border border-black-2 rounded rounded-md"
-          placeholder="Whatsapp"
-        />
-        <input
-          v-model="message"
-          class="border border-black-2 rounded rounded-md"
-          placeholder="Correo electrónico"
-        />
+        <FlowInput class="rounded-md h-[58px]" placeholder="Nombre de contacto" />
+        <FlowInput class="rounded-md h-[58px]" placeholder="Whatsapp" />
+        <FlowInput class="rounded-md h-[58px]" placeholder="Correo electrónico" />
+
         <TheButtonjyj texto="Publica" />
       </section>
     </div>
