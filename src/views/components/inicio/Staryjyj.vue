@@ -44,7 +44,7 @@ export default defineComponent({
         </div>
       </div>
       <div>
-        <img src="@/assets/img/firstImage.jpg" alt="" class="w-[900px] h-[500px] rounded-l-[200px]">
+        <img src="@/assets/img/firstImage.jpg" alt="" class="w-[900px] h-[650px] rounded-l-[200px]">
       </div>
     </div>
   <footer class="mt-10">
