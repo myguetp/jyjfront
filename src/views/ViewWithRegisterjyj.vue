@@ -1,10 +1,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import MainLayout from '../layouts/MainLayout.vue'
-import SignUpjyj from './components/form/SignUpjyj.vue'
+import Formjyj from './components/form/Formjyj.vue'
 
 export default defineComponent({
-  components: {MainLayout, SignUpjyj},
+  components: {MainLayout, Formjyj},
   setup() {
     return {}
   },
@@ -12,7 +12,7 @@ export default defineComponent({
 </script>
 <template>
   <MainLayout>
-    <SignUpjyj />
+    <Formjyj />
   </MainLayout>
   
 </template>
