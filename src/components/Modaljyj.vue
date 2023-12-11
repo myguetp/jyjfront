@@ -24,7 +24,7 @@ export default {
   <div v-if="isOpen" class="fixed inset-0 flex items-center justify-center z-50">
     <div class="absolute bg-black opacity-50">
     </div>
-    <div class="bg-white p-6 rounded shadow-md w-[650px] h-[400px] drop-shadow-xl">
+    <div class="bg-white p-6 rounded shadow-md  w-full lg:w-[650px] h-[400px] drop-shadow-xl">
       <div class="flex justify-end">
       <button @click="closeModal" ><IconExit /> </button>
       </div>

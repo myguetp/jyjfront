@@ -6,8 +6,14 @@ export interface IRoom {
 }
 
 export class Room implements IRoom {
+  private url: string;
+
+  constructor() {
+    this.url = import.meta.env.VITE_APP_SERVICE_URL || ""
+  }
+
   getRoom(): Promise<RoomResponse> {
-    const route = 'http://localhost:3001/room'
+    const route = `${this.url}/room`
     return http.get(route)
   }
 }

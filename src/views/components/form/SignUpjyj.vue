@@ -1,15 +1,16 @@
 <template>
-  <section class="block">
+  <section class="block h-screen">
     <div class="flex w-full h-100% items-center justify-center gap-4">
-      <div>
-        <img src="@/assets/img/firstImage.jpg" alt="" class="w-[900px] h-[550px]">
+      <div class="hidden lg:block">
+        <img src="@/assets/img/firstImage.jpg" alt="" class="w-[900px] h-[850px]">
       </div>
       <div class="w-[500px]">
         <h2 class="font-wold text-[43px]">Crea tu cuenta</h2>
         
-        <FlowInput class="w-full h-[68px] mt-2 rounded-md" placeholder="Nombres y apellidos" />
+        <FlowInput class="w-full h-[68px] mt-2 rounded-md" placeholder="Nombres " />
+        <FlowInput class="w-full h-[68px] mt-2 rounded-md" placeholder="Apellidos" />
         <FlowInput class="w-full h-[68px] mt-2 rounded-md" placeholder="Correo electrónico" />
-        <FlowInput class="w-full h-[68px] mt-2 rounded-md" placeholder="Dirección general" />
+        <FlowInput class="w-full h-[68px] mt-2 rounded-md" placeholder="Teléfono" />
         <FlowInput class="w-full h-[68px] mt-2 rounded-md" placeholder="Cuidad" />
 
         <div class="relative">
@@ -35,11 +36,9 @@
           </button>
         </div>
 
-        <FlowInput class="w-full h-[68px] mt-2 rounded-md" type="password" placeholder="Repita la contraseña" />
-
         <div class="flex gap-4 mt-6 w-full items-center justify-center">
           <RouterView>
-            <RouterLink to="/Register"><TheButtonjyjVue texto="Registrarse" /></RouterLink>
+            <RouterLink to="/Select"><TheButtonjyjVue texto="Registrarse" /></RouterLink>
           </RouterView>
         </div>
       </div>
