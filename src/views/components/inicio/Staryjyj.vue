@@ -29,6 +29,7 @@ export default defineComponent({
     <div class="flex items-center gap-10 ">
       <div class="flex items-center w-[850px] p-2 lg:p-10 ml-2 lg:ml-6">
         <div class="block items-center ml-2 lg:ml-16">
+          <h2 class="text-[40px] lg:text-[50px] text-[#ad8a1f] font-bold">COMPLEXES</h2>
           <h2 class="text-[32px] lg:text-[40px] font-bold">Creamos produtos </h2>
           <h2 class="text-[32px] lg:text-[40px] font-bold">digitales para tu conjunto </h2>
           <h2 class="text-[32px] lg:text-[40px] font-bold">y/o edificioresidencial</h2>

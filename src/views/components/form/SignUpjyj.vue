@@ -1,11 +1,11 @@
 <template>
-  <section class="block h-screen">
-    <div class="flex w-full h-100% items-center justify-center gap-4">
+  <section class="block">
+    <div class="flex w-full h-full items-center justify-center gap-4">
       <div class="hidden lg:block">
-        <img src="@/assets/img/firstImage.jpg" alt="" class="w-[900px] h-[850px]">
+        <img src="@/assets/img/firstImage.jpg" alt="" class="w-[900px] h-[750px]">
       </div>
-      <div class="w-[500px]">
-        <h2 class="font-wold text-[43px]">Crea tu cuenta</h2>
+      <div class="w-[500px] ">
+        <h2 class="font-bold text-[43px]">Crea tu cuenta</h2>
         
         <FlowInput class="w-full h-[68px] mt-2 rounded-md" placeholder="Nombres " />
         <FlowInput class="w-full h-[68px] mt-2 rounded-md" placeholder="Apellidos" />

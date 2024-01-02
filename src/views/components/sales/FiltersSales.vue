@@ -2,7 +2,7 @@
   <section class="flex items-center justify-center w-full">
     <div>
       <section class="flex gap-10">
-        <input placeholder="Ubicación del inmueble" />
+        <input class="bg-gray-300 w-96 p-4" placeholder="Ubicación del inmueble" />
         <div>Filtros</div>
       </section>
       <section class="flex gap-10 mt-4">
@@ -21,12 +21,12 @@
   </section>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { ButtonGroup as IButton } from 'flowbite-vue'
+import { defineComponent } from "vue";
+import { ButtonGroup as IButton } from "flowbite-vue";
 export default defineComponent({
   components: { IButton },
   setup() {
-    return { IButton }
-  }
-})
+    return { IButton };
+  },
+});
 </script>
