@@ -6,8 +6,14 @@ export interface IStratum {
 }
 
 export class Stratum implements IStratum {
+  private url: string;
+
+  constructor() {
+    this.url = import.meta.env.VITE_APP_SERVICE_URL || ""
+  }
+
   getStratum(): Promise<StratumResponse> {
-    const route = 'http://localhost:3001/Stratum'
+    const route = `${this.url}/Stratum`
     return http.get(route)
   }
 }

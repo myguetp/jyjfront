@@ -6,8 +6,14 @@ export interface IAntiquity {
 }
 
 export class Antiquity implements IAntiquity {
+  private url: string;
+
+  constructor() {
+    this.url = import.meta.env.VITE_APP_SERVICE_URL || ""
+  }
+  
   getAntiquity(): Promise<AntiquityResponse> {
-    const route = 'http://localhost:3001/antiquity'
+    const route = `${this.url}/antiquity`
     return http.get(route)
   }
 }

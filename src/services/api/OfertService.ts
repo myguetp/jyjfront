@@ -6,8 +6,13 @@ export interface Ioffer {
 }
 
 export class Offert implements Ioffer {
+  private url: string;
+
+  constructor() {
+    this.url =import.meta.env.VITE_APP_SERVICE_URL || ""
+  }
   getOfert(): Promise<OferResponse> {
-    const route = 'http://localhost:3001/ofert'
+    const route = `${this.url}/ofert`
     return http.get(route)
   }
 }

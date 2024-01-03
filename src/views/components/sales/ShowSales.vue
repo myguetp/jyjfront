@@ -15,13 +15,15 @@
     <div class="mt-2">
       <p class="font-bold">{{ price }}</p>
       <p>{{ details }}</p>
+      <p>{{ otherInfo }}</p>
       <p class="font-bold">{{ propertyType }}</p>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
@@ -62,6 +64,10 @@ export default defineComponent({
       required: true
     },
     details: {
+      type: String,
+      required: true
+    },
+    otherInfo: {
       type: String,
       required: true
     },

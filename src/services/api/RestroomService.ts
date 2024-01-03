@@ -7,8 +7,14 @@ export interface IRestroom {
 }
 
 export class Restroom implements IRestroom {
+  private url: string;
+
+  constructor() {
+    this.url = import.meta.env.VITE_APP_SERVICE_URL || ""
+  }
+
   getRestroom(): Promise<RestroomResponse> {
-    const route = 'http://localhost:3001/restroom'
+    const route = `${this.url}/restroom`
     return http.get(route)
   }
 }
