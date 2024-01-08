@@ -39,12 +39,12 @@ export default defineComponent({
 </script>
 <template>
   <MainLayout>
-    <section class="flex">
-      <div class="bg-white box-shadow p-2">
+    <section class="flex p-1 gap-4 w-full">
+      <div class="box-shadow p-2 w-[20%] h-auto">
         <FilterLeases />
       </div>
-      <div>
-        <div class="flex gap-6 m-5 w-full">
+      <div class="w-[90%] h-auto rounded-md shadow snap-y overflow-auto flex flex-wrap">
+        <div class="flex gap-6 m-5">
           <ShowLeases
             v-for="leases in [
               /* ... */
@@ -91,7 +91,7 @@ export default defineComponent({
             :propertyType="'Arriendo'"
           />
         </div>
-        <div class="flex gap-6 m-5 w-full bg-">
+        <div class="flex gap-6 m-5">
           <ShowLeases
             v-for="leases in [
               /* ... */
@@ -138,7 +138,7 @@ export default defineComponent({
             :propertyType="'Arriendo'"
           />
         </div>
-        <div class="flex gap-6 m-5 w-full">
+        <div class="flex gap-6 m-5">
           <ShowLeases
             v-for="leases in [
               /* ... */

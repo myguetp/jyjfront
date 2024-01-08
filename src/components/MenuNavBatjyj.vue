@@ -66,42 +66,39 @@ export default defineComponent({
 
       <div class="flex gap-32">
         <nav class="flex gap-32 items-center text-center justify-center mt-6">
-          <div
-            class="cursor-pointer font-bold text-lg hover:text-gray-500"
-            @click="openUs"
-          >
+          <div class="cursor-pointer font-bold text-lg" @click="openUs">
             <p>Nosotros</p>
           </div>
           <RouterLink
             :to="{ path: '/Contact' }"
-            class="font-bold text-lg hover:text-gray-500"
-            activeClass="text-gray-500"
+            class="font-bold text-lg"
+            activeClass="rounded-md bg-gray-200 p-5"
             exact
             >Contacto</RouterLink
           >
           <RouterLink
             :to="{ path: '/Advertisements' }"
-            class="font-bold text-lg hover:text-gray-500"
-            activeClass="text-gray-500"
+            class="font-bold text-lg"
+            activeClass="rounded-md bg-gray-200 p-5"
             exact
             >Anuncios</RouterLink
           >
           <RouterLink
             :to="{ path: '/Leases' }"
-            class="font-bold text-lg hover:text-gray-500"
-            activeClass="text-gray-500"
+            class="font-bold text-lg"
+            activeClass="rounded-md bg-gray-200 p-5"
             exact
           >
             Arriendos
           </RouterLink>
           <RouterLink
             :to="{ path: '/Sales' }"
-            class="font-bold text-lg hover:text-gray-500"
-            activeClass="text-gray-500"
+            class="font-bold text-lg"
+            activeClass="rounded-md bg-gray-200 p-5"
             exact
             >Ventas</RouterLink
           >
-          <div class="cursor-pointer hover:text-gray-500" @click="openModal">
+          <div class="cursor-pointer" @click="openModal">
             <p class="font-bold text-lg">Ingresar</p>
           </div>
         </nav>
