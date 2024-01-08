@@ -1,8 +1,10 @@
 import http from "../http";
+import type { RoomRequest } from "../request";
 import type { RoomResponse } from "../response";
 
 export interface IRoom {
-  getRoom(): Promise<RoomResponse>
+  getRoom: () => Promise<RoomResponse>
+  sendRoom: (data: RoomRequest ) => Promise<RoomResponse>
 }
 
 export class Room implements IRoom {
@@ -15,5 +17,10 @@ export class Room implements IRoom {
   getRoom(): Promise<RoomResponse> {
     const route = `${this.url}/room`
     return http.get(route)
+  }
+
+  sendRoom(data: RoomRequest ): Promise<RoomResponse> {
+    const route = `${this.url}/room/creationRoom`
+    return http.post(route, data)
   }
 }

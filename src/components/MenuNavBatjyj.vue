@@ -106,7 +106,7 @@ export default defineComponent({
 
       <div class="flex gap-4 mt-2 pr-8">
         <RouterLink to="/SalesLeases"
-          ><TheButtonjyjVue texto="Publica gratis"
+          ><TheButtonjyjVue class="text-white" texto="Publica gratis"
         /></RouterLink>
       </div>
     </header>
@@ -146,7 +146,7 @@ export default defineComponent({
         <p class="font-bold text-lg">Ingresar</p>
       </div>
       <RouterLink to="/SalesLeases"
-        ><TheButtonjyjVue texto="Publica gratis" :tamanio="'sm'"
+        ><TheButtonjyjVue class="text-white" texto="Publica gratis" :tamanio="'sm'"
       /></RouterLink>
     </nav>
   </div>
