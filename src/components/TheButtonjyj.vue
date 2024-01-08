@@ -52,7 +52,7 @@ export default defineComponent({
 <template>
   <button
     :type="'button'"
-    :class="[clase, 'bg-[#445c64] text-white rounded-md font-bold', tamanioClass]"
+    :class="[clase, 'bg-[#445c64] rounded-md ', tamanioClass]"
     @click="OnClick"
   >
     {{ iconModal }}

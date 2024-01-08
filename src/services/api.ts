@@ -6,9 +6,10 @@ import { Restroom, type IRestroom } from "./api/RestroomService"
 import { Room, type IRoom } from "./api/RoomService"
 import { Sales, type ISales } from "./api/SalesSerive"
 import { Stratum, type IStratum } from "./api/StratumService"
-import type { AntiquityResponse, OferResponse, RestroomResponse, RoomResponse, StratumResponse } from "./response"
-import type { RegisterRequest, SalesRequest } from "./request"
+import type { AdvertisementResponse, AntiquityResponse, OferResponse, RestroomResponse, RoomResponse, StratumResponse } from "./response"
+import type { RegisterRequest, RoomRequest, SalesRequest } from "./request"
 import { AuthRegister, type IRegister } from "./api/AuthRegister"
+import { Advertisement, type IAdvertisement } from "./api/AdvertisementService"
 
 export class Api {
   private isAuth: IRegister 
@@ -19,6 +20,7 @@ export class Api {
   private isRoom: IRoom
   private isRestroom: IRestroom
   private isSales: ISales
+  private isAdvertisement: IAdvertisement
 
   constructor() {
     this.isOffer = new Offert()
@@ -29,6 +31,7 @@ export class Api {
     this.isRestroom = new Restroom() 
     this.isSales = new Sales()
     this.isAuth = new AuthRegister()
+    this.isAdvertisement = new Advertisement()
  
   }
 
@@ -56,6 +59,10 @@ export class Api {
     return this.isRoom.getRoom()
   }
 
+  sendRoom(data: RoomRequest ): Promise<RoomResponse> {
+    return this.isRoom.sendRoom(data)
+  }
+
   getRestroom(): Promise<RestroomResponse> {
     return this.isRestroom.getRestroom()
   }
@@ -72,5 +79,8 @@ export class Api {
     return this.isSales.sendSales(request)
   }
 
+  getAdvertisement(): Promise<AdvertisementResponse> {
+    return this.isAdvertisement.getAdvertisement()
+  }
 
 }
