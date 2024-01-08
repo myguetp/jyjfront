@@ -1,7 +1,7 @@
 <template>
   <section
     class="shadow-inner box-shadow cursor-pointer border hover:border-[#445c64] rounded-md"
-    :style="{ width: containerWidth, padding: containerPadding }"
+    :style="{ width: containerWidth, padding: containerPadding, maxWidth: '100%' }"
   >
     <div class="w-full">
       <carousel :items-to-show="carouselItemsToShow">
