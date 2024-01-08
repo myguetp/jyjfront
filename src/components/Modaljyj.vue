@@ -1,5 +1,5 @@
 <script lang="ts">
-import IconExit from'@/components/icons/IconExit.vue'
+import IconExit from'../components/icons/IconExit.vue'
 export default {
   props: {
     isOpen: Boolean,
@@ -22,16 +22,17 @@ export default {
 </script>
 <template>
   <div v-if="isOpen" class="fixed inset-0 flex items-center justify-center z-50">
-    <div class="absolute bg-black opacity-50">
-    </div>
-    <div class="bg-white p-6 rounded shadow-md  w-full lg:w-[650px] h-[400px] drop-shadow-xl">
-      <div class="flex justify-end">
-      <button @click="closeModal" ><IconExit /> </button>
+    <div class="absolute bg-black opacity-60 w-full h-full"></div>
+    <div class="bg-white p-6 rounded shadow-md w-full lg:w-[650px] h-auto drop-shadow-xl flex flex-col">
+      <div class="flex justify-end shadow-sm">
+        <div class="flex justify-center flex-1">
+          <h2 class="text-2xl text-[#ad8a1f] font-bold">{{ titulo }}</h2>
+        </div>
+        <button @click="closeModal"><IconExit /></button>
       </div>
-      <div class="flex justify-center ">
-      <h2 class="text-2xl">{{titulo}}</h2>
-      </div>
+      
       <slot></slot>
+    
     </div>
   </div>
 </template>
