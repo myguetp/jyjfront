@@ -6,10 +6,11 @@ import { Restroom, type IRestroom } from "./api/RestroomService"
 import { Room, type IRoom } from "./api/RoomService"
 import { Sales, type ISales } from "./api/SalesSerive"
 import { Stratum, type IStratum } from "./api/StratumService"
-import type { AdvertisementResponse, AntiquityResponse, OferResponse, RestroomResponse, RoomResponse, StratumResponse } from "./response"
+import type { AdvertisementResponse, AntiquityResponse, OferResponse, ParkingResponse, RestroomResponse, RoomResponse, StratumResponse } from "./response"
 import type { RegisterRequest, RoomRequest, SalesRequest } from "./request"
 import { AuthRegister, type IRegister } from "./api/AuthRegister"
 import { Advertisement, type IAdvertisement } from "./api/AdvertisementService"
+import { Parking, type IParking } from "./api/ParkingService"
 
 export class Api {
   private isAuth: IRegister 
@@ -21,6 +22,7 @@ export class Api {
   private isRestroom: IRestroom
   private isSales: ISales
   private isAdvertisement: IAdvertisement
+  private isParking: IParking 
 
   constructor() {
     this.isOffer = new Offert()
@@ -32,6 +34,8 @@ export class Api {
     this.isSales = new Sales()
     this.isAuth = new AuthRegister()
     this.isAdvertisement = new Advertisement()
+    this.isParking = new Parking()
+
  
   }
 
@@ -67,8 +71,17 @@ export class Api {
     return this.isRestroom.getRestroom()
   }
 
-  getSales(): Promise<RoomResponse> {
-    return this.isSales.getSales()
+  getSales(stratum?: string,
+    room?: string,
+    restroom?: string,
+    age?: string,
+    parking?: string,
+    property?: string,
+    minPrice?: number,
+    maxPrice?: number,
+    minArea?: number,
+    maxArea?: number): Promise<RoomResponse> {
+    return this.isSales.getSales(stratum, room, restroom, age, parking, property, minPrice, maxPrice, minArea, maxArea )
   }
 
   putSales(request: SalesRequest): Promise<AxiosResponse<RoomResponse>> {
@@ -81,6 +94,10 @@ export class Api {
 
   getAdvertisement(): Promise<AdvertisementResponse> {
     return this.isAdvertisement.getAdvertisement()
+  }
+
+  getParking(): Promise<ParkingResponse> {
+    return this.isParking.getParking()
   }
 
 }

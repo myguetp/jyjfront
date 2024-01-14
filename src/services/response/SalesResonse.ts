@@ -4,7 +4,6 @@ export interface SalesResponse {
   neigborhood:    string
   property:       string
   stratum:        string
-  breed:          string
   price:          string
   room:           string
   restroom:       string
