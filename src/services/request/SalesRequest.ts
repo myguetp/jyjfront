@@ -1,16 +1,34 @@
+interface File {
+  fieldname: string
+  originalname: string
+  encoding: string
+  mimetype: string
+}
+
 export interface SalesRequest {
-  register:       string
-  ofert:          string
-  neigborhood:    string
-  property:       string
-  stratum:        string
-  breed:          string
-  price:          string
-  room:           string
-  restroom:       string
-  age:            string
+  ofert: string
+
+  parking: string
+
+  neigborhood: string
+
+  property: string
+
+  stratum: string
+
+  price: number
+
+  room: string
+
+  restroom: string
+
+  age: string
+
   administration: string
-  area:           string
-  description:    string
-  filename:       string[]
+
+  area: number
+
+  description: string
+
+  picture: File[]
 }

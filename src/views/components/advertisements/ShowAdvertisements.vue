@@ -1,7 +1,7 @@
 <template>
   <section
-    class="shadow-inner"
-    :style="{ width: containerWidth, padding: containerPadding }"
+    class="shadow-inner box-shadow cursor-pointer border hover:border-[#445c64] rounded-md"
+    :style="{ width: containerWidth, padding: containerPadding, maxWidth: '100%' }"
   >
     <div class="w-full">
       <carousel :items-to-show="carouselItemsToShow">
@@ -19,7 +19,8 @@
         </template>
       </carousel>
     </div>
-    <div class="mt-2">
+    <div class="mt-2 ml-4">
+      <TheButtonjyj class="bg-gray-300" texto="Contancto" :tamanio="'sm'" />
       <p class="font-bold">{{ price }}</p>
       <p>{{ details }}</p>
       <p class="font-bold">{{ propertyType }}</p>
@@ -30,11 +31,13 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import "vue3-carousel/dist/carousel.css";
+import TheButtonjyj from "../../../components/TheButtonjyj.vue";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
 export default defineComponent({
   components: {
     Carousel,
+    TheButtonjyj,
     Slide,
     Pagination,
     Navigation,
@@ -76,6 +79,9 @@ export default defineComponent({
       type: String,
       required: true,
     },
+  },
+  setup() {
+    return {};
   },
 });
 </script>

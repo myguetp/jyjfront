@@ -6,25 +6,23 @@ import { useMutationSales } from "./useMutationSales";
 
 import Multiselect from "@vueform/multiselect";
 import { useSaleStore } from "./store/saleStore";
-import { useQueryRoomData } from "../../../composable/roomComposable";
-import { useQueryRestroomData } from "../../../composable/restroomComposable";
-import { useQueryStratumData } from "../../../composable/stratumComposable";
-import { useQueryPropertyData } from "../../../composable/propertyComposable";
-import { useQueryAntiquityData } from "../../../composable/antiquityComposable";
+import { useQueryRoomData } from "../../../composable/leases/roomComposable";
+import { useQueryRestroomData } from "../../../composable/leases/restroomComposable";
+import { useQueryStratumData } from "../../../composable/leases/stratumComposable";
+import { useQueryPropertyData } from "../../../composable/leases/propertyComposable";
+import { useQueryAntiquityData } from "../../../composable/leases/antiquityComposable";
+import { useQueryParkingData } from "../../../composable/leases/parkingComposable";
+import { useQueryOferData } from "../../../composable/leases/oferComposable";
 
 export default defineComponent({
   components: { TheButtonjyj, FlowInput, FlowTexarea, Multiselect },
   setup() {
     const storeSale = useSaleStore();
 
-    const { mutate } = useMutationSales();
-
-    const register = ref("5456456456");
     const ofert = ref("");
     const neigborhood = ref("");
     const property = ref("");
     const stratum = ref("");
-    const breed = ref("");
     const price = ref("");
     const room = ref("");
     const restroom = ref("");
@@ -32,33 +30,26 @@ export default defineComponent({
     const administration = ref("");
     const area = ref("");
     const description = ref("");
-    const filename = ref([]);
+    const parking = ref("");
+    const picture = ref([]);
 
-    const handleSubmit = async () => {
-      try {
-        const formData = {
-          register: register.value,
-          ofert: ofert.value,
-          neigborhood: neigborhood.value,
-          property: property.value,
-          stratum: stratum.value,
-          breed: breed.value,
-          price: price.value,
-          room: room.value,
-          restroom: restroom.value,
-          age: age.value,
-          administration: administration.value,
-          area: area.value,
-          description: description.value,
-          filename: allimg.value,
-        };
-
-        console.log(formData);
-
-        await mutate(formData);
-      } catch (error) {
-        console.error("Error al enviar el formulario", error);
-      }
+    const { mutate } = useMutationSales();
+    const handleRegistration = async () => {
+      await mutate({
+        ofert: ofert.value,
+        neigborhood: neigborhood.value,
+        property: property.value,
+        stratum: stratum.value,
+        price: price.value,
+        room: room.value,
+        restroom: restroom.value,
+        age: age.value,
+        administration: administration.value,
+        area: area.value,
+        description: description.value,
+        parking: parking.value,
+        picture: picture.value,
+      });
     };
 
     const selectedImgIndex = ref(0);
@@ -98,29 +89,34 @@ export default defineComponent({
     const { data: stratumData, isLoading: stratumLoading } = useQueryStratumData();
     const { data: propertyData, isLoading: propertyLoading } = useQueryPropertyData();
     const { data: antiquiyData, isLoading: antiquityLoading } = useQueryAntiquityData();
+    const { data: parkingData, isLoading: parkingLoading } = useQueryParkingData();
+    const { data: ofertData, isLoading: ofertLoading } = useQueryOferData();
 
     return {
       allimg,
-      handleSubmit,
+      handleRegistration,
       addimg,
       getImgPreview,
       selectImg,
       removeImg,
+      parkingData,
+      parkingLoading,
       selectedImgIndex,
-      register,
       ofert,
+      ofertData,
+      ofertLoading,
       neigborhood,
       property,
       stratum,
-      breed,
       price,
       room,
+      parking,
       restroom,
       age,
       administration,
       area,
       description,
-      filename,
+      picture,
       storeSale,
       roomData,
       roomLoading,
@@ -138,14 +134,27 @@ export default defineComponent({
 </script>
 <template>
   <section class="flex justify-center">
-    <form class="block w-[80%] h-[80%]" @submit.prevent="handleSubmit">
+    <form class="block w-[80%] h-[80%]">
       <div class="block gap-6 p-8 w-full">
         <p class="text-[30px] underline underline-offset-8 font-bold">
           Publica tu Inmueble
         </p>
         <section class="block lg:flex w-full">
           <div class="block w-full lg:w-[30%] mt-10 pt-4">
-            <Multiselect placeholder="Tipo de oferta" class="h-[68px] rounded-md" />
+            <div v-if="ofertLoading" class="loading-indicator">Cargando datos...</div>
+
+            <Multiselect
+              id="ofert"
+              v-model="ofert"
+              :options="
+                ofertData?.data.map((ofert) => ({
+                  value: ofert.id,
+                  label: ofert.name,
+                }))
+              "
+              class="h-[68px] rounded-md"
+              placeholder="Tipo de oferta"
+            />
             <div class="mt-2">
               <div v-if="propertyLoading" class="loading-indicator">
                 Cargando datos...
@@ -156,8 +165,8 @@ export default defineComponent({
                 v-model="property"
                 :options="
                   propertyData?.data.map((property) => ({
-                    value: property.name,
-                    label: property.id,
+                    value: property.id,
+                    label: property.name,
                   }))
                 "
                 class="h-[68px] rounded-md"
@@ -171,7 +180,7 @@ export default defineComponent({
                 id="room"
                 v-model="room"
                 :options="
-                  roomData?.data.map((room) => ({ value: room.name, label: room.id }))
+                  roomData?.data.map((room) => ({ value: room.id, label: room.name }))
                 "
                 class="h-[68px] rounded-md"
                 placeholder="Número de baños"
@@ -187,8 +196,8 @@ export default defineComponent({
                 v-model="restroom"
                 :options="
                   restromData?.data.map((restroom) => ({
-                    value: restroom.name,
-                    label: restroom.id,
+                    value: restroom.id,
+                    label: restroom.name,
                   }))
                 "
                 class="h-[68px] rounded-md"
@@ -203,14 +212,32 @@ export default defineComponent({
                 v-model="stratum"
                 :options="
                   stratumData?.data.map((stratum) => ({
-                    value: stratum.name,
-                    label: stratum.id,
+                    value: stratum.id,
+                    label: stratum.name,
                   }))
                 "
                 class="h-[68px] rounded-md"
                 placeholder="Estrato"
               />
             </div>
+
+            <div class="mt-2">
+              <div v-if="parkingLoading" class="loading-indicator">Cargando datos...</div>
+
+              <Multiselect
+                id="parking"
+                v-model="parking"
+                :options="
+                  parkingData?.data.map((parking) => ({
+                    value: parking.id,
+                    label: parking.name,
+                  }))
+                "
+                class="h-[68px] rounded-md"
+                placeholder="Parqueadero"
+              />
+            </div>
+
             <div class="mt-2">
               <div v-if="antiquityLoading" class="loading-indicator">
                 Cargando datos...
@@ -221,8 +248,8 @@ export default defineComponent({
                 v-model="age"
                 :options="
                   antiquiyData?.data.map((age) => ({
-                    value: age.name,
-                    label: age.id,
+                    value: age.id,
+                    label: age.name,
                   }))
                 "
                 class="h-[68px] rounded-md"
@@ -283,6 +310,12 @@ export default defineComponent({
               placeholder="Precio"
             />
             <FlowInput
+              id="neigborhood"
+              v-model="neigborhood"
+              class="w-full h-[68px] mt-2 rounded-md"
+              placeholder="Barrio"
+            />
+            <FlowInput
               id="administration"
               v-model="administration"
               class="w-full h-[68px] mt-2 rounded-md"
@@ -306,7 +339,11 @@ export default defineComponent({
         </section>
       </div>
       <div class="flex justify-center lg:justify-end">
-        <TheButtonjyj texto="Publica" type="submit" />
+        <TheButtonjyj
+          class="text-white font-bold"
+          texto="Guardar"
+          @click="handleRegistration"
+        />
       </div>
     </form>
   </section>
@@ -322,3 +359,4 @@ export default defineComponent({
   border: 2px solid #00f; /* O el color de borde que prefieras */
 }
 </style>
+../../../composable/leases/antiquityComposable../../../composable/leases/propertyComposable../../../composable/leases/restroomComposable../../../composable/leases/roomComposable../../../composable/leases/stratumComposable
