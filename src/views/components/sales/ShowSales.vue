@@ -20,8 +20,10 @@
       </carousel>
     </div>
     <div class="mt-2 ml-4">
-      <TheButtonjyj class="bg-gray-300" texto="Contancto" :tamanio="'sm'" />
-      <p class="font-bold">{{ price }}</p>
+      <TheButtonjyj class="bg-gray-300" texto="Contacto" :tamanio="'sm'" />
+      <p class="font-bold">Barrio {{ neighborhood }}</p>
+      <p class="font-bold">Precio {{ price }}</p>
+      <p class="font-bold">Administracion {{ administration }}</p>
       <p>{{ details }}</p>
       <p class="font-bold">{{ propertyType }}</p>
     </div>
@@ -69,6 +71,14 @@ export default defineComponent({
       default: "290px",
     },
     price: {
+      type: String,
+      required: true,
+    },
+    administration: {
+      type: String,
+      required: true,
+    },
+    neighborhood: {
       type: String,
       required: true,
     },

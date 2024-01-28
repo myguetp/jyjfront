@@ -1,7 +1,8 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { Input as FlowInput } from "flowbite-vue";
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView, useRoute, useRouter } from "vue-router";
+
 import TheButtonjyjVue from "../../../components/TheButtonjyj.vue";
 import { useMutationSignup } from "./signUpMutation";
 
@@ -9,6 +10,8 @@ export default defineComponent({
   components: { FlowInput, TheButtonjyjVue, RouterLink, RouterView },
   setup() {
     const showPassword = ref(false);
+    const router = useRouter();
+    const route = useRoute();
 
     let name = ref("");
     let lastName = ref("");
@@ -103,12 +106,13 @@ export default defineComponent({
 
         <div class="flex gap-4 mt-6 w-full items-center justify-center">
           <RouterView>
-            <RouterLink to="/Select"
-              ><TheButtonjyjVue
+            <RouterLink to="/Select">
+              <TheButtonjyjVue
                 class="text-white"
                 texto="Registrarse"
                 @click="handleRegistration"
-            /></RouterLink>
+              />
+            </RouterLink>
           </RouterView>
         </div>
       </form>
