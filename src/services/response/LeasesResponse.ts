@@ -1,4 +1,4 @@
-export interface SalesResponse {
+export interface LeasesResponse {
   register:       string
   ofert:          string
   parking:        string  

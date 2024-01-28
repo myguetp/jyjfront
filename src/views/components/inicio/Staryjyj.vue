@@ -53,8 +53,8 @@ export default defineComponent({
 
 <template>
   <section class="block">
-    <div class="block md:flex lg:flex items-center gap-10">
-      <div class="flex items-center w-auto lg:w-[850px] p-2 lg:p-10 ml-2 lg:ml-6">
+    <div class="block md:flex lg:flex items-center justify-center gap-10">
+      <div class="block items-center w-auto lg:w-[850px] p-2 lg:p-10 ml-2 lg:ml-6">
         <div class="block items-center ml-2 lg:ml-16">
           <h2 class="text-[40px] lg:text-[50px] text-[#ad8a1f] font-bold">COMPLEXES</h2>
           <h2 class="text-[32px] lg:text-[40px] font-bold">Creamos produtos</h2>
@@ -65,25 +65,25 @@ export default defineComponent({
             <TheButtonjyj texto="Trabajemos juntos" />
           </div>
         </div>
+        <div class="hidden lg:block mt-60">
+          <div class="flex justify-center items-center">
+            <p>Encuentranos en</p>
+          </div>
+          <div class="block lg:flex justify-center items-center mb-10 mt-2 w-full">
+            <section class="flex gap-4 ml-4 lg:ml-0 lg:gap-20">
+              <a class="cursor-pointer" href="#"> <IconFacebook /> </a>
+              <a class="cursor-pointer" href="#"> <IconInstagram /> </a>
+              <a class="cursor-pointer" href="#"> <IconPinterest /> </a>
+              <a class="cursor-pointer" href="#"> <IconYoutube /> </a>
+              <a class="cursor-pointer" href="#"> <IconLinkedin /> </a>
+            </section>
+          </div>
+        </div>
       </div>
-      <div class="block">
+      <div class="block w-full lg:w-[700px] border border-gray-300">
         <ShowFirstPicture :pictures="pictures" />
       </div>
     </div>
-    <footer class="mt-10">
-      <div class="flex justify-center items-center">
-        <p>Encuentranos en</p>
-      </div>
-      <div class="block lg:flex justify-center items-center mb-10 mt-2 w-full">
-        <section class="flex gap-4 ml-4 lg:ml-0 lg:gap-20">
-          <a class="cursor-pointer" href="#"> <IconFacebook /> </a>
-          <a class="cursor-pointer" href="#"> <IconInstagram /> </a>
-          <a class="cursor-pointer" href="#"> <IconPinterest /> </a>
-          <a class="cursor-pointer" href="#"> <IconYoutube /> </a>
-          <a class="cursor-pointer" href="#"> <IconLinkedin /> </a>
-        </section>
-      </div>
-    </footer>
     <Siningtj />
   </section>
 </template>

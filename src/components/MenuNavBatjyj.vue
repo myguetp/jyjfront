@@ -59,7 +59,7 @@ export default defineComponent({
           <img
             src="@/assets/img/complexs.png"
             alt=""
-            class="w-[120px] h-[100px] rounded-l-[200px]"
+            class="w-[150px] h-[120px] rounded-l-[200px]"
           />
         </div>
       </RouterLink>

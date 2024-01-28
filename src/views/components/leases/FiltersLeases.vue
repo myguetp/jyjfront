@@ -98,12 +98,12 @@ export default defineComponent({
 
 <template>
   <div class="p-4 fixed z-50 block md:hidden lg:hidden">
-    <TheButtonjyj texto="filtro" :tamanio="'sm'" @click="onOpen" />
+    <TheButtonjyj class="text-white" texto="filtro" :tamanio="'sm'" @click="onOpen" />
     <section v-if="showFilter" class="z-50 mt-10">
       <section
-        class="block items-center justify-center rounded-md shadow snap-y overflow-auto fixed w-auto h-[550px] bg-gray-200"
+        class="block items-center justify-center rounded-md shadow snap-y overflow-auto fixed w-auto h-[350px] bg-gray-200"
       >
-        <div class="p-4">
+        <div class="p-8 m-8 bg-gray-500 border-8 border-white-500 box-shadow">
           <section>
             <input
               class="bg-gray-300 rounded-md p-4 w-full"

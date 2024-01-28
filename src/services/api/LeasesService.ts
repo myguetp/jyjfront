@@ -1,10 +1,8 @@
-import type { AxiosResponse } from 'axios'
 import http from '../http'
-import type { RoomResponse, SalesResponse } from '../response'
-import type { SalesRequest } from '../request'
+import type { LeasesResponse } from '../response'
 
-export interface ISales {
-  getSales: (stratum?: string,
+export interface ILeases {
+  getLeases: (stratum?: string,
     room?: string,
     restroom?: string,
     age?: string,
@@ -13,21 +11,17 @@ export interface ISales {
     minPrice?: number,
     maxPrice?: number,
     minArea?: number,
-    maxArea?: number) => Promise<SalesResponse>
-
-  putSales: (data: SalesRequest) => Promise<AxiosResponse<SalesResponse>>
-
-  sendSales: (data: SalesRequest) => Promise<AxiosResponse<SalesResponse>>
+    maxArea?: number) => Promise<LeasesResponse>
 }
 
-export class Sales implements ISales {
+export class Leases implements ILeases {
   private url: string
 
   constructor() {
     this.url = import.meta.env.VITE_APP_SERVICE_URL || ''
   }
 
-  getSales(
+  getLeases(
     stratum?: string,
     room?: string,
     restroom?: string,
@@ -38,8 +32,8 @@ export class Sales implements ISales {
     maxPrice?: number,
     minArea?: number,
     maxArea?: number
-  ): Promise<SalesResponse> {
-    let route = `${this.url}/sales/byAllData`;
+  ): Promise<LeasesResponse> {
+    let route = `${this.url}/leases/byAllData`;
   
     const queryParams: Record<string, any> = {
       stratum,
@@ -66,15 +60,5 @@ export class Sales implements ISales {
     }
   
     return http.get(route);
-  }
-
-  putSales(data: SalesRequest): Promise<AxiosResponse<SalesResponse>> {
-    const route = `${this.url}/sales`
-    return http.put(route, data)
-  }
-
-  sendSales(data: SalesRequest): Promise<AxiosResponse<SalesResponse>> {
-    const route = `${this.url}/sales/uploadcrate`
-    return http.post(route, data)
   }
 }

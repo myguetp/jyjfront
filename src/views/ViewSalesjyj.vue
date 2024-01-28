@@ -46,151 +46,28 @@ export default defineComponent({
 </script>
 <template>
   <MainLayout>
-    <section class="flex p-1 gap-4 w-full">
+    <section class="block md:flex lg:flex p-1 gap-4 w-full">
       <div class="box-shadow p-2 w-[20%] h-auto">
         <FilterSales />
       </div>
-      <div class="w-[90%] h-auto rounded-md shadow snap-y overflow-auto flex flex-wrap">
-        <div class="flex gap-6">
-          {{ allsales }}
+      <div
+        class="w-[90%] h-auto rounded-md shadow snap-y overflow-auto flex flex-col ml-4 lg:ml-0"
+      >
+        <div class="block md:flex lg:flex gap-6 md:m-5 lg:m-5 flex-wrap">
           <ShowSales
-            v-for="sales in [
-              /* ... */
-            ]"
+            v-for="sales in allsales.data"
             :key="sales.id"
             :pictures="pictures"
             :containerWidth="'350px'"
             :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
+            :price="sales.price ?? 0"
+            :administration="sales.administration ?? 0"
+            :neighborhood="sales.neigborhood ?? ''"
+            :details="`${sales.restroom ?? 0} - ${sales.room ?? 0} - ${
+              sales.parking ?? 0
+            } - ${sales.area ?? 0} `"
             :propertyType="'Venta'"
             @click="openModal(sales)"
-          />
-          <ShowSales
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
-          />
-          <ShowSales
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
-          />
-          <ShowSales
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
-          />
-          <ShowSales
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
-          />
-        </div>
-        <div class="flex gap-6 m-5">
-          <ShowSales
-            v-for="sales in [
-              /* ... */
-            ]"
-            :key="sales.id"
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
-            @click="openModal(sales)"
-          />
-          <ShowSales
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
-          />
-          <ShowSales
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
-          />
-          <ShowSales
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
-          />
-          <ShowSales
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
-          />
-        </div>
-        <div class="flex gap-6 m-5">
-          <ShowSales
-            v-for="sales in [
-              /* ... */
-            ]"
-            :key="sales.id"
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
-            @click="openModal(sales)"
-          />
-          <ShowSales
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
-          />
-          <ShowSales
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
-          />
-          <ShowSales
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
-          />
-          <ShowSales
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="'$2,000,000'"
-            :details="'120m - 5 bedrooms - 2 bathrooms'"
-            :propertyType="'Venta'"
           />
         </div>
       </div>

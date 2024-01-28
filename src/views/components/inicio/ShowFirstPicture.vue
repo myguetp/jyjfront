@@ -1,8 +1,8 @@
 <template>
-  <div class="w-[700px] relative">
+  <div class="w-auto lg:w-[700px] relative">
     <Carousel id="gallery" :items-to-show="1" :wrap-around="false" v-model="currentSlide">
       <Slide v-for="picture in pictures" :key="picture.alt">
-        <div class="relative">
+        <div class="flex w-full">
           <img :src="picture.src" :alt="picture.alt" />
           <p class="absolute bottom-0 left-0 bg-black text-white p-2">
             {{ picture.text }}

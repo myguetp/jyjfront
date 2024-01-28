@@ -6,11 +6,12 @@ import { Restroom, type IRestroom } from "./api/RestroomService"
 import { Room, type IRoom } from "./api/RoomService"
 import { Sales, type ISales } from "./api/SalesSerive"
 import { Stratum, type IStratum } from "./api/StratumService"
-import type { AdvertisementResponse, AntiquityResponse, OferResponse, ParkingResponse, RestroomResponse, RoomResponse, StratumResponse } from "./response"
+import type { AdvertisementResponse, AntiquityResponse, OferResponse, ParkingResponse, RestroomResponse, RoomResponse, SalesResponse, StratumResponse } from "./response"
 import type { RegisterRequest, RoomRequest, SalesRequest } from "./request"
 import { AuthRegister, type IRegister } from "./api/AuthRegister"
 import { Advertisement, type IAdvertisement } from "./api/AdvertisementService"
 import { Parking, type IParking } from "./api/ParkingService"
+import { Leases, type ILeases } from "./api/LeasesService"
 
 export class Api {
   private isAuth: IRegister 
@@ -21,6 +22,7 @@ export class Api {
   private isRoom: IRoom
   private isRestroom: IRestroom
   private isSales: ISales
+  private isLeases: ILeases
   private isAdvertisement: IAdvertisement
   private isParking: IParking 
 
@@ -32,6 +34,7 @@ export class Api {
     this.isRoom = new Room() 
     this.isRestroom = new Restroom() 
     this.isSales = new Sales()
+    this.isLeases = new Leases()
     this.isAuth = new AuthRegister()
     this.isAdvertisement = new Advertisement()
     this.isParking = new Parking()
@@ -80,15 +83,15 @@ export class Api {
     minPrice?: number,
     maxPrice?: number,
     minArea?: number,
-    maxArea?: number): Promise<RoomResponse> {
+    maxArea?: number): Promise<SalesResponse> {
     return this.isSales.getSales(stratum, room, restroom, age, parking, property, minPrice, maxPrice, minArea, maxArea )
   }
 
-  putSales(request: SalesRequest): Promise<AxiosResponse<RoomResponse>> {
+  putSales(request: SalesRequest): Promise<AxiosResponse<SalesResponse>> {
     return this.isSales.putSales(request)
   }
 
-  sendSales(request: SalesRequest): Promise<AxiosResponse<RoomResponse>> {
+  sendSales(request: SalesRequest): Promise<AxiosResponse<SalesResponse>> {
     return this.isSales.sendSales(request)
   }
 
@@ -98,6 +101,19 @@ export class Api {
 
   getParking(): Promise<ParkingResponse> {
     return this.isParking.getParking()
+  }
+
+  getLeases(stratum?: string,
+    room?: string,
+    restroom?: string,
+    age?: string,
+    parking?: string,
+    property?: string,
+    minPrice?: number,
+    maxPrice?: number,
+    minArea?: number,
+    maxArea?: number): Promise<SalesResponse> {
+    return this.isLeases.getLeases(stratum, room, restroom, age, parking, property, minPrice, maxPrice, minArea, maxArea )
   }
 
 }
