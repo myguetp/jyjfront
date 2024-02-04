@@ -26,14 +26,7 @@ export default defineComponent({
         <div class="flex gap-4 mt-6 w-full items-center justify-center">
           <RouterView>
             <RouterLink to="/Register"
-              ><TheButtonjyjVue class="text-white font-bold" texto="Arrriendo"
-            /></RouterLink>
-          </RouterView>
-        </div>
-        <div class="flex gap-4 mt-6 w-full items-center justify-center">
-          <RouterView>
-            <RouterLink to="/Register"
-              ><TheButtonjyjVue class="text-white font-bold" texto="Venta"
+              ><TheButtonjyjVue class="text-white font-bold" texto="Inmueble"
             /></RouterLink>
           </RouterView>
         </div>

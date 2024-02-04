@@ -1,8 +1,9 @@
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import TheButtonjyj from "../../../components/TheButtonjyj.vue";
 import { Input as FlowInput, Textarea as FlowTexarea } from "flowbite-vue";
 import { useMutationSales } from "./useMutationSales";
+import { useMutationLeases } from "./useMutationLeases";
 
 import Multiselect from "@vueform/multiselect";
 import { useSaleStore } from "./store/saleStore";
@@ -21,6 +22,8 @@ export default defineComponent({
 
     const ofert = ref("");
     const neigborhood = ref("");
+    const city = ref("");
+    const country = ref("");
     const property = ref("");
     const stratum = ref("");
     const price = ref("");
@@ -33,11 +36,13 @@ export default defineComponent({
     const parking = ref("");
     const picture = ref([]);
 
-    const { mutate } = useMutationSales();
-    const handleRegistration = async () => {
-      await mutate({
+    const { mutate: mutateSales } = useMutationSales();
+    const handleRegistrationSales = async () => {
+      await mutateSales({
         ofert: ofert.value,
         neigborhood: neigborhood.value,
+        city: city.value,
+        country: country.value,
         property: property.value,
         stratum: stratum.value,
         price: price.value,
@@ -50,6 +55,36 @@ export default defineComponent({
         parking: parking.value,
         picture: picture.value,
       });
+    };
+
+    const { mutate: mutateLeases } = useMutationLeases();
+    const handleRegistrationLeases = async () => {
+      await mutateLeases({
+        ofert: ofert.value,
+        neigborhood: neigborhood.value,
+        city: city.value,
+        country: country.value,
+        property: property.value,
+        stratum: stratum.value,
+        price: price.value,
+        room: room.value,
+        restroom: restroom.value,
+        age: age.value,
+        administration: administration.value,
+        area: area.value,
+        description: description.value,
+        parking: parking.value,
+        picture: picture.value,
+      });
+    };
+
+    const onSubmit = () => {
+      if (ofert.value === "2") {
+        handleRegistrationLeases();
+      }
+      if (ofert.value === "1") {
+        handleRegistrationSales();
+      }
     };
 
     const selectedImgIndex = ref(0);
@@ -94,7 +129,7 @@ export default defineComponent({
 
     return {
       allimg,
-      handleRegistration,
+      onSubmit,
       addimg,
       getImgPreview,
       selectImg,
@@ -106,6 +141,8 @@ export default defineComponent({
       ofertData,
       ofertLoading,
       neigborhood,
+      city,
+      country,
       property,
       stratum,
       price,
@@ -316,6 +353,18 @@ export default defineComponent({
               placeholder="Barrio"
             />
             <FlowInput
+              id="city"
+              v-model="city"
+              class="w-full h-[68px] mt-2 rounded-md"
+              placeholder="Ciudad"
+            />
+            <FlowInput
+              id="country"
+              v-model="country"
+              class="w-full h-[68px] mt-2 rounded-md"
+              placeholder="Pais"
+            />
+            <FlowInput
               id="administration"
               v-model="administration"
               class="w-full h-[68px] mt-2 rounded-md"
@@ -339,11 +388,7 @@ export default defineComponent({
         </section>
       </div>
       <div class="flex justify-center lg:justify-end">
-        <TheButtonjyj
-          class="text-white font-bold"
-          texto="Guardar"
-          @click="handleRegistration"
-        />
+        <TheButtonjyj class="text-white font-bold" texto="Guardar" @click="onSubmit" />
       </div>
     </form>
   </section>
@@ -359,4 +404,3 @@ export default defineComponent({
   border: 2px solid #00f; /* O el color de borde que prefieras */
 }
 </style>
-../../../composable/leases/antiquityComposable../../../composable/leases/propertyComposable../../../composable/leases/restroomComposable../../../composable/leases/roomComposable../../../composable/leases/stratumComposable

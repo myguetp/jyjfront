@@ -4,10 +4,10 @@ import { Offert, type Ioffer } from "./api/OfertService"
 import { PropertyType, type IPropertyType } from "./api/PropertyTypeService"
 import { Restroom, type IRestroom } from "./api/RestroomService"
 import { Room, type IRoom } from "./api/RoomService"
-import { Sales, type ISales } from "./api/SalesSerive"
+import { Sales, type ISales } from "./api/SalesService"
 import { Stratum, type IStratum } from "./api/StratumService"
-import type { AdvertisementResponse, AntiquityResponse, OferResponse, ParkingResponse, RestroomResponse, RoomResponse, SalesResponse, StratumResponse } from "./response"
-import type { RegisterRequest, RoomRequest, SalesRequest } from "./request"
+import type { AdvertisementResponse, AntiquityResponse, LeasesResponse, OferResponse, ParkingResponse, RestroomResponse, RoomResponse, SalesResponse, StratumResponse } from "./response"
+import type { LeasesRequest, RegisterRequest, RoomRequest, SalesRequest } from "./request"
 import { AuthRegister, type IRegister } from "./api/AuthRegister"
 import { Advertisement, type IAdvertisement } from "./api/AdvertisementService"
 import { Parking, type IParking } from "./api/ParkingService"
@@ -114,6 +114,10 @@ export class Api {
     minArea?: number,
     maxArea?: number): Promise<SalesResponse> {
     return this.isLeases.getLeases(stratum, room, restroom, age, parking, property, minPrice, maxPrice, minArea, maxArea )
+  }
+
+  sendLeases(request: LeasesRequest): Promise<AxiosResponse<LeasesResponse>> {
+    return this.isLeases.sendLeases(request)
   }
 
 }

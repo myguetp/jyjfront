@@ -1,3 +1,5 @@
+import type { SalesRequest } from "."
+
 export interface RegisterRequest {
   name: string
   lastName: string
@@ -5,4 +7,5 @@ export interface RegisterRequest {
   phone: string
   email: string
   password: string
+  sales: SalesRequest
 }

@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 import MainLayout from "../layouts/MainLayout.vue";
 import FilterLeases from "./components/leases/FiltersLeases.vue";
 import ShowLeases from "./components/leases/ShowLeases.vue";
@@ -24,14 +25,41 @@ export default defineComponent({
       },
     ];
 
-    const selectedLeases = ref(null);
-    const isModalOpen = ref(false);
+    const router = useRouter();
 
-    const openModal = (leases) => {
-      selectedLeases.value = leases;
-      isModalOpen.value = true;
+    const openSummary = async (
+      _id: string,
+      city: string,
+      neigborhood: string,
+      stratum: string,
+      price: string,
+      room: string,
+      restroom: string,
+      age: string,
+      administration: string,
+      area: string,
+      description: string,
+      parking: string
+    ) => {
+      router.push({
+        name: "InfoSummary",
+        params: {
+          _id,
+          city,
+          neigborhood,
+          stratum,
+          price,
+          room,
+          restroom,
+          age,
+          administration,
+          area,
+          description,
+          parking,
+        },
+      });
     };
-    return { pictures, openModal, allLeases };
+    return { pictures, openSummary, allLeases };
   },
 });
 </script>
@@ -47,7 +75,8 @@ export default defineComponent({
         <div class="block md:flex lg:flex gap-6 md:m-5 lg:m-5 flex-wrap">
           <ShowLeases
             v-for="leases in allLeases.data"
-            :key="leases.id"
+            :key="leases._id"
+            :city="leases.city"
             :pictures="pictures"
             :containerWidth="'350px'"
             :carouselItemsToShow="0.5"
@@ -58,7 +87,22 @@ export default defineComponent({
               leases.parking ?? 0
             } - ${leases.area ?? 0} `"
             :propertyType="'Arriendo'"
-            @click="openModal(leases)"
+            @click="
+              openSummary(
+                leases._id,
+                leases.city,
+                leases.neigborhood,
+                leases.stratum,
+                leases.price,
+                leases.room,
+                leases.restroom,
+                leases.age,
+                leases.administration,
+                leases.area,
+                leases.description,
+                leases.parking
+              )
+            "
           />
         </div>
       </div>
