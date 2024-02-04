@@ -38,6 +38,8 @@ export default class AuthService {
       if (response.token) {
         this.jwt.value = response.token,
         storehttp.$patch({ tokenAuth: this.jwt.value })
+        sessionStorage.setItem('token', this.jwt.value);
+
         return true;
       } else {
         // Handle the case where login fails

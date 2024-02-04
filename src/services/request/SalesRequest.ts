@@ -14,6 +14,10 @@ export interface SalesRequest {
 
   property: string
 
+  country: string
+
+  city: string
+
   stratum: string
 
   price: number

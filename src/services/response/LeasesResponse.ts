@@ -1,6 +1,8 @@
 export interface LeasesResponse {
   register:       string
   ofert:          string
+  city:           string
+  country:        string
   parking:        string  
   neigborhood:    string
   property:       string

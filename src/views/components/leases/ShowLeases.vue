@@ -1,6 +1,6 @@
 <template>
   <section
-    class="shadow-inner box-shadow cursor-pointer border hover:border-[#445c64] rounded-md"
+    class="shadow-inner box-shadow border hover:border-[#445c64] rounded-md"
     :style="{ width: containerWidth, padding: containerPadding, maxWidth: '100%' }"
   >
     <div class="w-full">
@@ -19,8 +19,16 @@
         </template>
       </carousel>
     </div>
+    <div class="flex justify-between gap-5 m-2">
+      <p class="font-bold">{{ city }}</p>
+      <TheButtonjyj
+        class="bg-gray-300"
+        texto="Ver mas"
+        :tamanio="'sm'"
+        @click="OnClick"
+      />
+    </div>
     <div class="mt-2 ml-4">
-      <TheButtonjyj class="bg-gray-300" texto="Contacto" :tamanio="'sm'" />
       <p class="font-bold">Barrio {{ neighborhood }}</p>
       <p class="font-bold">Precio {{ price }}</p>
       <p class="font-bold">Administracion {{ administration }}</p>
@@ -74,6 +82,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    city: {
+      type: String,
+      required: true,
+    },
     administration: {
       type: String,
       required: true,
@@ -91,8 +103,10 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
-    return {};
+  emits: ["click"],
+  setup(props, { emit }) {
+    const OnClick = () => emit("click");
+    return { OnClick };
   },
 });
 </script>

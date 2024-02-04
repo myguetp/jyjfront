@@ -1,4 +1,6 @@
+import type { AxiosResponse } from 'axios'
 import http from '../http'
+import type { LeasesRequest } from '../request'
 import type { LeasesResponse } from '../response'
 
 export interface ILeases {
@@ -12,7 +14,9 @@ export interface ILeases {
     maxPrice?: number,
     minArea?: number,
     maxArea?: number) => Promise<LeasesResponse>
-}
+
+  sendLeases: (data: LeasesRequest) => Promise<AxiosResponse<LeasesResponse>>
+  }
 
 export class Leases implements ILeases {
   private url: string
@@ -60,5 +64,10 @@ export class Leases implements ILeases {
     }
   
     return http.get(route);
+  }
+
+  sendLeases(data: LeasesRequest): Promise<AxiosResponse<LeasesResponse>> {
+    const route = `${this.url}/leases/uploadcrate`
+    return http.post(route, data)
   }
 }

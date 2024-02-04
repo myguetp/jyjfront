@@ -1,6 +1,6 @@
 <template>
   <section
-    class="shadow-inner box-shadow cursor-pointer border hover:border-[#445c64] rounded-md"
+    class="shadow-inner box-shadow border hover:border-[#445c64] rounded-md"
     :style="{ width: containerWidth, padding: containerPadding, maxWidth: '100%' }"
   >
     <div class="w-full">
@@ -19,8 +19,11 @@
         </template>
       </carousel>
     </div>
-    <div class="mt-2 ml-4">
+    <div class="flex justify-between gap-5 m-2">
       <TheButtonjyj class="bg-gray-300" texto="Contacto" :tamanio="'sm'" />
+      <TheButtonjyj class="bg-gray-300" texto="Ver mas" :tamanio="'sm'" />
+    </div>
+    <div class="mt-2 ml-4">
       <p class="font-bold">Barrio {{ neighborhood }}</p>
       <p class="font-bold">Precio {{ price }}</p>
       <p class="font-bold">Administracion {{ administration }}</p>

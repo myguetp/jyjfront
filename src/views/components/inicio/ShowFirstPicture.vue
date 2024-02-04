@@ -27,8 +27,10 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, PropType } from "vue";
+import { ref, defineComponent } from "vue";
 import { Carousel, Slide } from "vue3-carousel";
+import type { PropType } from "vue";
+
 import "vue3-carousel/dist/carousel.css";
 
 export default defineComponent({

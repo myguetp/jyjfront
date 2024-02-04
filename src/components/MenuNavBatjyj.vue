@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView, useRouter } from "vue-router";
 import TheButtonjyjVue from "../components/TheButtonjyj.vue";
 import Modaljyj from "./Modaljyj.vue";
 import AuthService from "../../src/services/AuthService";
@@ -8,6 +8,7 @@ import IconBurguerVue from "./icons/IconBurguer.vue";
 
 export default defineComponent({
   setup() {
+    const router = useRouter();
     const modalOpen = ref(false);
     const modalUs = ref(false);
     const showMenu = ref(false);
@@ -30,6 +31,7 @@ export default defineComponent({
       const success = await auth.login(email.value, password.value);
       if (success) {
         alert("Exito");
+        router.push({ name: "Select" });
       } else {
         alert("incorrect");
       }
@@ -174,7 +176,7 @@ export default defineComponent({
             <a class="font-bold text-sm cursor-pointer">¿Olvidó su contraseña?</a>
           </div>
           <div class="flex justify-center mt-4">
-            <TheButtonjyjVue texto="Ingresar" @click="authUser" />
+            <TheButtonjyjVue texto="Ingresar" class="text-white" @click="authUser" />
           </div>
         </div>
       </div>

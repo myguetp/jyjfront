@@ -1,6 +1,8 @@
 export interface SalesResponse {
   register:       string
   ofert:          string
+  city:           string
+  country:        string
   parking:        string  
   neigborhood:    string
   property:       string
