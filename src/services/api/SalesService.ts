@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios'
 import http from '../http'
-import type { RoomResponse, SalesResponse } from '../response'
+import type { SalesResponse } from '../response'
 import type { SalesRequest } from '../request'
 
 export interface ISales {

@@ -1,13 +1,13 @@
 export interface LeasesResponse {
-  register:       string
+  _id:            string
   ofert:          string
   city:           string
   country:        string
   parking:        string  
-  neigborhood:    string
+  neighborhood:    string
   property:       string
   stratum:        string
-  price:          string
+  price:          number
   room:           string
   restroom:       string
   age:            string

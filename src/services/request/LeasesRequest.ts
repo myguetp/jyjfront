@@ -10,7 +10,7 @@ export interface LeasesRequest {
 
   parking: string
 
-  neigborhood: string
+  neighborhood: string
 
   property: string
 
