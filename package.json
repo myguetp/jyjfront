@@ -23,6 +23,7 @@
     "vee-validate": "^4.11.8",
     "vue": "3.3.4",
     "vue-carousel": "0.18.0",
+    "vue-mapbox-ts": "^0.9.10",
     "vue-multiselect": "2.1.7",
     "vue-query": "1.26.0",
     "vue-router": "4.2.4",

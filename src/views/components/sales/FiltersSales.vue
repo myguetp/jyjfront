@@ -13,85 +13,90 @@ import { useQueryParkingData } from "../../../composable/leases/parkingComposabl
 export default defineComponent({
   components: { FlowInput, TheButtonjyj },
   setup() {
-    const price = ref(false);
-    const stratum = ref(false);
-    const antiquity = ref(false);
-    const area = ref(false);
-    const space = ref(false);
-    const property = ref(false);
-    const parking = ref(false);
-    const showFilter = ref(false);
+    try {
+      const price = ref(false);
+      const stratum = ref(false);
+      const antiquity = ref(false);
+      const area = ref(false);
+      const space = ref(false);
+      const property = ref(false);
+      const parking = ref(false);
+      const showFilter = ref(false);
 
-    const onOpen = () => {
-      showFilter.value = !showFilter.value;
-    };
+      const onOpen = () => {
+        showFilter.value = !showFilter.value;
+      };
 
-    const onClickPrice = () => {
-      price.value = !price.value;
-    };
+      const onClickPrice = () => {
+        price.value = !price.value;
+      };
 
-    const onClickStratum = () => {
-      stratum.value = !stratum.value;
-    };
+      const onClickStratum = () => {
+        stratum.value = !stratum.value;
+      };
 
-    const onClickAntiquity = () => {
-      antiquity.value = !antiquity.value;
-    };
+      const onClickAntiquity = () => {
+        antiquity.value = !antiquity.value;
+      };
 
-    const onClickArea = () => {
-      area.value = !area.value;
-    };
+      const onClickArea = () => {
+        area.value = !area.value;
+      };
 
-    const onClickSpace = () => {
-      space.value = !space.value;
-    };
+      const onClickSpace = () => {
+        space.value = !space.value;
+      };
 
-    const onClickProperty = () => {
-      property.value = !property.value;
-    };
+      const onClickProperty = () => {
+        property.value = !property.value;
+      };
 
-    const onClickParking = () => {
-      parking.value = !parking.value;
-    };
+      const onClickParking = () => {
+        parking.value = !parking.value;
+      };
 
-    const { data: roomData, isLoading: roomLoading } = useQueryRoomData();
-    const { data: restromData, isLoading: restroomLoading } = useQueryRestroomData();
-    const { data: stratumData, isLoading: stratumLoading } = useQueryStratumData();
-    const { data: propertyData, isLoading: propertyLoading } = useQueryPropertyData();
-    const { data: antiquiyData, isLoading: antiquityLoading } = useQueryAntiquityData();
-    const { data: parkingData, isLoading: parkingLoading } = useQueryParkingData();
+      const { data: roomData, isLoading: roomLoading } = useQueryRoomData();
+      const { data: restromData, isLoading: restroomLoading } = useQueryRestroomData();
+      const { data: stratumData, isLoading: stratumLoading } = useQueryStratumData();
+      const { data: propertyData, isLoading: propertyLoading } = useQueryPropertyData();
+      const { data: antiquiyData, isLoading: antiquityLoading } = useQueryAntiquityData();
+      const { data: parkingData, isLoading: parkingLoading } = useQueryParkingData();
 
-    return {
-      IButton,
-      onClickPrice,
-      onClickStratum,
-      onClickAntiquity,
-      onClickArea,
-      onClickSpace,
-      onClickProperty,
-      onClickParking,
-      onOpen,
-      parking,
-      price,
-      stratum,
-      antiquity,
-      area,
-      space,
-      property,
-      roomData,
-      restromData,
-      roomLoading,
-      restroomLoading,
-      propertyLoading,
-      stratumData,
-      stratumLoading,
-      propertyData,
-      antiquiyData,
-      antiquityLoading,
-      showFilter,
-      parkingData,
-      parkingLoading,
-    };
+      return {
+        IButton,
+        onClickPrice,
+        onClickStratum,
+        onClickAntiquity,
+        onClickArea,
+        onClickSpace,
+        onClickProperty,
+        onClickParking,
+        onOpen,
+        parking,
+        price,
+        stratum,
+        antiquity,
+        area,
+        space,
+        property,
+        roomData,
+        restromData,
+        roomLoading,
+        restroomLoading,
+        propertyLoading,
+        stratumData,
+        stratumLoading,
+        propertyData,
+        antiquiyData,
+        antiquityLoading,
+        showFilter,
+        parkingData,
+        parkingLoading,
+      };
+    } catch (error) {
+      console.error("Error in filter:", error);
+      throw error; // Re-throw the error to trigger Vue's error handling
+    }
   },
 });
 </script>

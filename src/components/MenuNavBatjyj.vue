@@ -1,14 +1,17 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { RouterLink, RouterView, useRouter } from "vue-router";
+import { RouterView, useRouter } from "vue-router";
 import TheButtonjyjVue from "../components/TheButtonjyj.vue";
 import Modaljyj from "./Modaljyj.vue";
 import AuthService from "../../src/services/AuthService";
 import IconBurguerVue from "./icons/IconBurguer.vue";
+import { useHttpStore } from "../services/store/httpstore";
 
 export default defineComponent({
   setup() {
     const router = useRouter();
+    const storehttp = useHttpStore();
+
     const modalOpen = ref(false);
     const modalUs = ref(false);
     const showMenu = ref(false);
@@ -38,6 +41,7 @@ export default defineComponent({
     };
 
     return {
+      router,
       modalOpen,
       modalUs,
       openModal,
@@ -47,16 +51,17 @@ export default defineComponent({
       authUser,
       showMenu,
       openMenu,
+      storehttp,
     };
   },
-  components: { TheButtonjyjVue, RouterLink, RouterView, Modaljyj, IconBurguerVue },
+  components: { TheButtonjyjVue, RouterView, Modaljyj, IconBurguerVue },
 });
 </script>
 
 <template>
   <section class="hidden items-center justify-center text-center mt-0 lg:block">
     <header class="flex items-center justify-between w-full pl-24 shadow-md">
-      <RouterLink to="/">
+      <div class="cursor-pointer" @click="router.push({ name: 'Inicio' })">
         <div>
           <img
             src="@/assets/img/complexs.png"
@@ -64,57 +69,67 @@ export default defineComponent({
             class="w-[150px] h-[120px] rounded-l-[200px]"
           />
         </div>
-      </RouterLink>
+      </div>
 
       <div class="flex gap-32">
         <nav class="flex gap-32 items-center text-center justify-center mt-6">
           <div class="cursor-pointer font-bold text-lg" @click="openUs">
             <p>Nosotros</p>
           </div>
-          <RouterLink
-            :to="{ path: '/Contact' }"
-            class="font-bold text-lg"
+          <div
+            @click="router.push({ name: 'Contact' })"
+            class="font-bold text-lg cursor-pointer"
             activeClass="rounded-md bg-gray-200 p-5"
             exact
-            >Contacto</RouterLink
           >
-          <RouterLink
-            :to="{ path: '/Advertisements' }"
-            class="font-bold text-lg"
+            Contacto
+          </div>
+          <div
+            @click="router.push({ name: 'Advertisements' })"
+            class="font-bold text-lg cursor-pointer"
             activeClass="rounded-md bg-gray-200 p-5"
             exact
-            >Anuncios</RouterLink
           >
-          <RouterLink
-            :to="{ path: '/Leases' }"
-            class="font-bold text-lg"
+            Anuncios
+          </div>
+          <div
+            @click="router.push({ name: 'Leases' })"
+            class="font-bold text-lg cursor-pointer"
             activeClass="rounded-md bg-gray-200 p-5"
             exact
           >
             Arriendos
-          </RouterLink>
-          <RouterLink
-            :to="{ path: '/Sales' }"
-            class="font-bold text-lg"
+          </div>
+          <div
+            @click="router.push({ name: 'Sales' })"
+            class="font-bold text-lg cursor-pointer"
             activeClass="rounded-md bg-gray-200 p-5"
             exact
-            >Ventas</RouterLink
           >
-          <div class="cursor-pointer" @click="openModal">
-            <p class="font-bold text-lg">Ingresar</p>
+            Ventas
+          </div>
+          <div
+            v-show="storehttp.tokenAuth === ''"
+            class="cursor-pointer"
+            @click="openModal"
+          >
+            <p v-show="storehttp.tokenAuth === ''" class="font-bold text-lg">Ingresar</p>
           </div>
         </nav>
       </div>
 
-      <div class="flex gap-4 mt-2 pr-8">
-        <RouterLink to="/SalesLeases"
-          ><TheButtonjyjVue class="text-white" texto="Publica gratis"
-        /></RouterLink>
+      <div v-show="storehttp.tokenAuth === ''" class="flex gap-4 mt-2 pr-8">
+        <div class="cursor-pointer" @click="router.push({ name: 'SalesLeases' })">
+          <TheButtonjyjVue class="text-white" texto="Publica gratis" />
+        </div>
+      </div>
+      <div v-show="storehttp.tokenAuth !== ''" class="flex gap-4 mt-2 pr-8">
+        <div to="/Select"><TheButtonjyjVue class="text-white" texto="Mi perfil" /></div>
       </div>
     </header>
   </section>
   <div class="flex lg:hidden p-4 justify-between cursor-pointer" @click="openMenu()">
-    <RouterLink to="/">
+    <div class="cursor-pointer" @click="router.push({ name: 'Inicio' })">
       <div>
         <img
           src="@/assets/img/complexs.png"
@@ -122,7 +137,7 @@ export default defineComponent({
           class="w-[100px] h-[100px] rounded-l-[200px]"
         />
       </div>
-    </RouterLink>
+    </div>
     <div class="mt-8">
       <IconBurguerVue />
     </div>
@@ -133,23 +148,43 @@ export default defineComponent({
         <p class="font-bold text-lg">Nosotros</p>
       </div>
       <div>
-        <RouterLink to="/Contact" class="font-bold text-lg">Contacto</RouterLink>
+        <div
+          @click="router.push({ name: 'Contact' })"
+          class="font-bold text-lg cursor-pointer"
+        >
+          Contacto
+        </div>
       </div>
       <div>
-        <RouterLink to="/Advertisements" class="font-bold text-lg">Anuncios</RouterLink>
+        <div
+          @click="router.push({ name: 'Contact' })"
+          class="font-bold text-lg cursor-pointer"
+        >
+          Anuncios
+        </div>
       </div>
       <div>
-        <RouterLink to="/Leases" class="font-bold text-lg">Arriendos</RouterLink>
+        <div
+          @click="router.push({ name: 'Contact' })"
+          class="font-bold text-lg cursor-pointer"
+        >
+          Arriendos
+        </div>
       </div>
       <div>
-        <RouterLink to="/Sales" class="font-bold text-lg">Ventas</RouterLink>
+        <div
+          @click="router.push({ name: 'Contact' })"
+          class="font-bold text-lg cursor-pointer"
+        >
+          Ventas
+        </div>
       </div>
-      <div class="cursor-pointer" @click="openModal">
+      <div v-show="storehttp.tokenAuth === ''" class="cursor-pointer" @click="openModal">
         <p class="font-bold text-lg">Ingresar</p>
       </div>
-      <RouterLink to="/SalesLeases"
-        ><TheButtonjyjVue class="text-white" texto="Publica gratis" :tamanio="'sm'"
-      /></RouterLink>
+      <div class="cursor-pointer" @click="router.push({ name: 'SalesLeases' })">
+        <TheButtonjyjVue class="text-white" texto="Publica gratis" :tamanio="'sm'" />
+      </div>
     </nav>
   </div>
   <Modaljyj :isOpen="modalOpen" @update:is-open="modalOpen = $event" titulo="COMPLEXES">

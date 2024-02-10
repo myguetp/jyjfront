@@ -1,16 +1,18 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
-import MainLayout from '../layouts/MainLayout.vue'
+import { defineComponent } from "vue";
+import { MapboxMap } from "vue-mapbox-ts";
+import MainLayout from "../layouts/MainLayout.vue";
 
 export default defineComponent({
-  components: {MainLayout},
+  components: { MainLayout, MapboxMap },
   setup() {
-    return {}
+    const myAccessToken = "";
+    return { myAccessToken };
   },
-})
+});
 </script>
 <template>
   <MainLayout>
-    <p>hola contacto</p>
+    <mapbox-map :accessToken="myAccessToken" mapStyle="light-v10" />
   </MainLayout>
 </template>

@@ -20,8 +20,13 @@
       </carousel>
     </div>
     <div class="flex justify-between gap-5 m-2">
-      <TheButtonjyj class="bg-gray-300" texto="Contacto" :tamanio="'sm'" />
-      <TheButtonjyj class="bg-gray-300" texto="Ver mas" :tamanio="'sm'" />
+      <p class="font-bold">{{ city }}</p>
+      <TheButtonjyj
+        class="bg-gray-300"
+        texto="Ver mas"
+        :tamanio="'sm'"
+        @click="OnClick()"
+      />
     </div>
     <div class="mt-2 ml-4">
       <p class="font-bold">Barrio {{ neighborhood }}</p>
@@ -32,7 +37,6 @@
     </div>
   </section>
 </template>
-
 <script lang="ts">
 import { defineComponent } from "vue";
 import type { PropType } from "vue";
@@ -74,6 +78,10 @@ export default defineComponent({
       default: "290px",
     },
     price: {
+      type: Number,
+      required: true,
+    },
+    city: {
       type: String,
       required: true,
     },
@@ -94,8 +102,11 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
-    return {};
+  emits: ["click"],
+  setup(props, { emit }) {
+    const OnClick = () => emit("click");
+
+    return { OnClick, props };
   },
 });
 </script>

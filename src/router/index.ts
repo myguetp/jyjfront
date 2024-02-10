@@ -2,10 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ViewIniciojyj from '@/views/ViewIniciojyj.vue'
 
 const isAuthenticated = () => {
-  // Verificar si el token está presente en el sessionStorage u otro método de autenticación
   const storedToken = sessionStorage.getItem('token');
-  return !!storedToken; // Devuelve true si el token está presente, false si no lo está
-};
+  return !!storedToken
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,6 +41,10 @@ const router = createRouter({
     {
       path: '/Leases',
       name: 'Leases',
+      beforeEnter: (to, from, next) => {
+        // Check conditions, and call next() to allow navigation
+        next();
+      },
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -50,6 +53,10 @@ const router = createRouter({
     {
       path: '/Sales',
       name: 'Sales',
+      beforeEnter: (to, from, next) => {
+        // Check conditions, and call next() to allow navigation
+        next();
+      },
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -90,7 +97,7 @@ const router = createRouter({
       component: () => import('../views/ViewSelectOptionjyj.vue')
     },
     {
-      path: '/InfoSummary/:_id/:city/:neigborhood/:stratum/:price/:room/:restroom/:age/:administration/:area/:description/:parking',
+      path: '/InfoSummary',
       name: 'InfoSummary',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route

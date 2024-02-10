@@ -14,7 +14,7 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    neigborhood: {
+    neighborhood: {
       type: String,
       required: true,
     },
@@ -80,7 +80,7 @@ export default defineComponent({
     <section class="flex justify-center items-center">
       <div>
         <p>APARTAMENTO EN ARRIENDO</p>
-        <p>{{ city }}, {{ neigborhood }}</p>
+        <p>{{ city }}, {{ neighborhood }}</p>
       </div>
     </section>
     <div>imagen</div>

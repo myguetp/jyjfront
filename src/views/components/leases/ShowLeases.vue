@@ -25,7 +25,7 @@
         class="bg-gray-300"
         texto="Ver mas"
         :tamanio="'sm'"
-        @click="OnClick"
+        @click="OnClick()"
       />
     </div>
     <div class="mt-2 ml-4">
@@ -79,7 +79,7 @@ export default defineComponent({
       default: "290px",
     },
     price: {
-      type: String,
+      type: Number,
       required: true,
     },
     city: {
@@ -106,7 +106,8 @@ export default defineComponent({
   emits: ["click"],
   setup(props, { emit }) {
     const OnClick = () => emit("click");
-    return { OnClick };
+
+    return { OnClick, props };
   },
 });
 </script>

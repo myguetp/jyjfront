@@ -15,13 +15,18 @@ import { useQueryAntiquityData } from "../../../composable/leases/antiquityCompo
 import { useQueryParkingData } from "../../../composable/leases/parkingComposable";
 import { useQueryOferData } from "../../../composable/leases/oferComposable";
 
+interface Option {
+  value: string;
+  label: string;
+}
+
 export default defineComponent({
   components: { TheButtonjyj, FlowInput, FlowTexarea, Multiselect },
   setup() {
     const storeSale = useSaleStore();
 
     const ofert = ref("");
-    const neigborhood = ref("");
+    const neighborhood = ref("");
     const city = ref("");
     const country = ref("");
     const property = ref("");
@@ -40,7 +45,7 @@ export default defineComponent({
     const handleRegistrationSales = async () => {
       await mutateSales({
         ofert: ofert.value,
-        neigborhood: neigborhood.value,
+        neighborhood: neighborhood.value,
         city: city.value,
         country: country.value,
         property: property.value,
@@ -53,7 +58,7 @@ export default defineComponent({
         area: area.value,
         description: description.value,
         parking: parking.value,
-        picture: picture.value,
+        picture: allimg,
       });
     };
 
@@ -61,7 +66,7 @@ export default defineComponent({
     const handleRegistrationLeases = async () => {
       await mutateLeases({
         ofert: ofert.value,
-        neigborhood: neigborhood.value,
+        neighborhood: neighborhood.value,
         city: city.value,
         country: country.value,
         property: property.value,
@@ -74,7 +79,7 @@ export default defineComponent({
         area: area.value,
         description: description.value,
         parking: parking.value,
-        picture: picture.value,
+        picture: allimg,
       });
     };
 
@@ -140,7 +145,7 @@ export default defineComponent({
       ofert,
       ofertData,
       ofertLoading,
-      neigborhood,
+      neighborhood,
       city,
       country,
       property,
@@ -347,8 +352,8 @@ export default defineComponent({
               placeholder="Precio"
             />
             <FlowInput
-              id="neigborhood"
-              v-model="neigborhood"
+              id="neighborhood"
+              v-model="neighborhood"
               class="w-full h-[68px] mt-2 rounded-md"
               placeholder="Barrio"
             />

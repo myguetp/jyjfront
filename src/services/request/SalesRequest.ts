@@ -10,7 +10,7 @@ export interface SalesRequest {
 
   parking: string
 
-  neigborhood: string
+  neighborhood: string
 
   property: string
 
