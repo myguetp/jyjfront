@@ -1,8 +1,6 @@
-interface File {
-  fieldname: string
-  originalname: string
-  encoding: string
-  mimetype: string
+interface Picture {
+  name: string
+  type: string
 }
 
 export interface LeasesRequest {
@@ -34,5 +32,5 @@ export interface LeasesRequest {
 
   description: string
 
-  picture: File[]
+  picture: Picture[]
 }

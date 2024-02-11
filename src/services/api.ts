@@ -6,12 +6,14 @@ import { Restroom, type IRestroom } from "./api/RestroomService"
 import { Room, type IRoom } from "./api/RoomService"
 import { Sales, type ISales } from "./api/SalesService"
 import { Stratum, type IStratum } from "./api/StratumService"
-import type { AdvertisementResponse, AntiquityResponse, LeasesResponse, OferResponse, ParkingResponse, RestroomResponse, RoomResponse, SalesResponse, StratumResponse } from "./response"
+import type { AdvertisementResponse, AntiquityResponse, CityResponse, LeasesResponse, OferResponse, ParkingResponse, RestroomResponse, RoomResponse, SalesResponse, StratumResponse, UserResponse } from "./response"
 import type { LeasesRequest, RegisterRequest, RoomRequest, SalesRequest } from "./request"
 import { AuthRegister, type IRegister } from "./api/AuthRegister"
 import { Advertisement, type IAdvertisement } from "./api/AdvertisementService"
 import { Parking, type IParking } from "./api/ParkingService"
 import { Leases, type ILeases } from "./api/LeasesService"
+import { User, type IUser } from "./api/UserService"
+import { CountryCity, type ICountryCity } from "./api/CountryCityService"
 
 export class Api {
   private isAuth: IRegister 
@@ -25,6 +27,9 @@ export class Api {
   private isLeases: ILeases
   private isAdvertisement: IAdvertisement
   private isParking: IParking 
+  private isUser: IUser 
+  private isCountryCity: ICountryCity
+
 
   constructor() {
     this.isOffer = new Offert()
@@ -38,7 +43,8 @@ export class Api {
     this.isAuth = new AuthRegister()
     this.isAdvertisement = new Advertisement()
     this.isParking = new Parking()
-
+    this.isUser = new User()
+    this.isCountryCity = new CountryCity()
  
   }
 
@@ -112,7 +118,7 @@ export class Api {
     minPrice?: number,
     maxPrice?: number,
     minArea?: number,
-    maxArea?: number): Promise<SalesResponse> {
+    maxArea?: number): Promise<LeasesResponse> {
     return this.isLeases.getLeases(stratum, room, restroom, age, parking, property, minPrice, maxPrice, minArea, maxArea )
   }
 
@@ -120,4 +126,15 @@ export class Api {
     return this.isLeases.sendLeases(request)
   }
 
+  getUser(idUser: string): Promise<UserResponse> {
+    return this.isUser.getUser(idUser)
+  }
+
+  sendSalesUser(isUser:string, data: SalesRequest): Promise<AxiosResponse<SalesResponse>> {
+    return this.isUser.sendSalesUser(isUser, data)
+  }
+
+  getCountryCity(): Promise<CityResponse> {
+    return this.isCountryCity.getCountryCity()
+  }
 }

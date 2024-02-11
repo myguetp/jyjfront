@@ -10,5 +10,14 @@
     {
       "path": "./tsconfig.vitest.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "types": [
+      "vue3-toastify/global"
+    ],
+    "baseUrl": "./",  // Establece la URL base para resolver módulos
+    "paths": {
+      "@/*": ["src/*"]  // Alias para importar desde el directorio src con @/
+    }
+  }
 }

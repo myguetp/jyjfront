@@ -73,6 +73,14 @@ const router = createRouter({
     {
       path: '/Register',
       name: 'Register',
+      meta: { requiresAuth: true },
+      beforeEnter: (to, from, next) => {
+        if (isAuthenticated()) {
+          next();
+        } else {
+          next({ name: 'Inicio' });
+        }
+      },
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -84,10 +92,8 @@ const router = createRouter({
       meta: { requiresAuth: true },
       beforeEnter: (to, from, next) => {
         if (isAuthenticated()) {
-          // El usuario está autenticado, permite la navegación
           next();
         } else {
-          // El usuario no está autenticado, redirige a la página de inicio o a otra página de inicio de sesión
           next({ name: 'Inicio' });
         }
       },

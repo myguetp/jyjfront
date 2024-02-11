@@ -1,44 +1,63 @@
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import { RouterView, useRouter } from "vue-router";
-import TheButtonjyjVue from "../components/TheButtonjyj.vue";
-import Modaljyj from "./Modaljyj.vue";
-import AuthService from "../../src/services/AuthService";
-import IconBurguerVue from "./icons/IconBurguer.vue";
-import { useHttpStore } from "../services/store/httpstore";
+import { defineComponent, ref } from 'vue'
+import { RouterView, useRouter } from 'vue-router'
+import TheButtonjyjVue from '../components/TheButtonjyj.vue'
+import Modaljyj from './Modaljyj.vue'
+import AuthService from '../../src/services/AuthService'
+import IconBurguerVue from './icons/IconBurguer.vue'
+import { useHttpStore } from '../services/store/httpstore'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css';
+
 
 export default defineComponent({
+  components: { TheButtonjyjVue, RouterView, Modaljyj, IconBurguerVue },
   setup() {
-    const router = useRouter();
-    const storehttp = useHttpStore();
+    const router = useRouter()
+    const storehttp = useHttpStore()
 
-    const modalOpen = ref(false);
-    const modalUs = ref(false);
-    const showMenu = ref(false);
+    const modalOpen = ref(false)
+    const modalUs = ref(false)
+    const showMenu = ref(false)
     const openModal = () => {
-      modalOpen.value = true;
-    };
+      modalOpen.value = true
+    }
     const openUs = () => {
-      modalUs.value = true;
-    };
+      modalUs.value = true
+    }
 
     const openMenu = () => {
-      showMenu.value = !showMenu.value;
+      showMenu.value = !showMenu.value
+    }
+
+    const cerrarSesion = () => {
+      sessionStorage.removeItem('token');
+      storehttp.$patch((state) => {
+        state.tokenAuth = ''; 
+      });
+      router.push({ name: 'Inicio' });
     };
 
-    let email = ref("");
-    let password = ref("");
+    let email = ref('')
+    let password = ref('')
 
     const authUser = async () => {
-      const auth = new AuthService();
-      const success = await auth.login(email.value, password.value);
+      const auth = new AuthService()
+      const success = await auth.login(email.value, password.value)
       if (success) {
-        alert("Exito");
-        router.push({ name: "Select" });
+        router.push({ name: 'Select' })
+
+        toast('Ingreso exitoso', {
+          delay: 50000,
+          rtl: true,
+        });
       } else {
-        alert("incorrect");
+        toast('Intente nuevamente', {
+          delay: 50000,
+          rtl: true,
+        });
       }
-    };
+    }
 
     return {
       router,
@@ -52,10 +71,11 @@ export default defineComponent({
       showMenu,
       openMenu,
       storehttp,
-    };
-  },
-  components: { TheButtonjyjVue, RouterView, Modaljyj, IconBurguerVue },
-});
+      cerrarSesion
+    }
+  }
+
+})
 </script>
 
 <template>
@@ -108,11 +128,7 @@ export default defineComponent({
           >
             Ventas
           </div>
-          <div
-            v-show="storehttp.tokenAuth === ''"
-            class="cursor-pointer"
-            @click="openModal"
-          >
+          <div v-show="storehttp.tokenAuth === ''" class="cursor-pointer" @click="openModal">
             <p v-show="storehttp.tokenAuth === ''" class="font-bold text-lg">Ingresar</p>
           </div>
         </nav>
@@ -124,18 +140,26 @@ export default defineComponent({
         </div>
       </div>
       <div v-show="storehttp.tokenAuth !== ''" class="flex gap-4 mt-2 pr-8">
-        <div to="/Select"><TheButtonjyjVue class="text-white" texto="Mi perfil" /></div>
+        <div>
+          <p class="font-bold"> Usuario: {{ storehttp.useName }} </p>
+        <div class="flex gap-2">
+          <TheButtonjyjVue
+            :tamanio="'sm'"
+            class="text-white"
+            texto="Mi perfil"
+            @click="router.push({ name: 'Select' })"
+          />
+          <TheButtonjyjVue :tamanio="'sm'" class="text-white bg-red-400" texto="Cerrar Sesion" @click="cerrarSesion" /> 
+          
+        </div>
+        </div>
       </div>
     </header>
   </section>
   <div class="flex lg:hidden p-4 justify-between cursor-pointer" @click="openMenu()">
     <div class="cursor-pointer" @click="router.push({ name: 'Inicio' })">
       <div>
-        <img
-          src="@/assets/img/complexs.png"
-          alt=""
-          class="w-[100px] h-[100px] rounded-l-[200px]"
-        />
+        <img src="@/assets/img/complexs.png" alt="" class="w-[100px] h-[100px] rounded-l-[200px]" />
       </div>
     </div>
     <div class="mt-8">
@@ -148,34 +172,22 @@ export default defineComponent({
         <p class="font-bold text-lg">Nosotros</p>
       </div>
       <div>
-        <div
-          @click="router.push({ name: 'Contact' })"
-          class="font-bold text-lg cursor-pointer"
-        >
+        <div @click="router.push({ name: 'Contact' })" class="font-bold text-lg cursor-pointer">
           Contacto
         </div>
       </div>
       <div>
-        <div
-          @click="router.push({ name: 'Contact' })"
-          class="font-bold text-lg cursor-pointer"
-        >
+        <div @click="router.push({ name: 'Contact' })" class="font-bold text-lg cursor-pointer">
           Anuncios
         </div>
       </div>
       <div>
-        <div
-          @click="router.push({ name: 'Contact' })"
-          class="font-bold text-lg cursor-pointer"
-        >
+        <div @click="router.push({ name: 'Contact' })" class="font-bold text-lg cursor-pointer">
           Arriendos
         </div>
       </div>
       <div>
-        <div
-          @click="router.push({ name: 'Contact' })"
-          class="font-bold text-lg cursor-pointer"
-        >
+        <div @click="router.push({ name: 'Contact' })" class="font-bold text-lg cursor-pointer">
           Ventas
         </div>
       </div>

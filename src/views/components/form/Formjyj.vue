@@ -3,7 +3,6 @@ import { defineComponent, ref } from "vue";
 import TheButtonjyj from "../../../components/TheButtonjyj.vue";
 import { Input as FlowInput, Textarea as FlowTexarea } from "flowbite-vue";
 import { useMutationSales } from "./useMutationSales";
-import { useMutationLeases } from "./useMutationLeases";
 
 import Multiselect from "@vueform/multiselect";
 import { useSaleStore } from "./store/saleStore";
@@ -14,11 +13,13 @@ import { useQueryPropertyData } from "../../../composable/leases/propertyComposa
 import { useQueryAntiquityData } from "../../../composable/leases/antiquityComposable";
 import { useQueryParkingData } from "../../../composable/leases/parkingComposable";
 import { useQueryOferData } from "../../../composable/leases/oferComposable";
+import { useQueryCityData } from "../../../composable/leases/cityComposable";
+import { useHttpStore } from "@/services/store/httpstore";
 
-interface Option {
-  value: string;
-  label: string;
-}
+interface Picture {
+  name: string
+  type: string
+}  
 
 export default defineComponent({
   components: { TheButtonjyj, FlowInput, FlowTexarea, Multiselect },
@@ -41,8 +42,18 @@ export default defineComponent({
     const parking = ref("");
     const picture = ref([]);
 
-    const { mutate: mutateSales } = useMutationSales();
+    const storehttp = useHttpStore();
+    const idUser =  storehttp.idUser
+
+    const { mutate: mutateSales } = useMutationSales(idUser);
+
     const handleRegistrationSales = async () => {
+      const pictures: Picture[] = allimg.value.map((file) => {
+        return {
+          name: file.name,           
+          type: file.type,
+        };
+      });
       await mutateSales({
         ofert: ofert.value,
         neighborhood: neighborhood.value,
@@ -58,35 +69,11 @@ export default defineComponent({
         area: area.value,
         description: description.value,
         parking: parking.value,
-        picture: allimg,
-      });
-    };
-
-    const { mutate: mutateLeases } = useMutationLeases();
-    const handleRegistrationLeases = async () => {
-      await mutateLeases({
-        ofert: ofert.value,
-        neighborhood: neighborhood.value,
-        city: city.value,
-        country: country.value,
-        property: property.value,
-        stratum: stratum.value,
-        price: price.value,
-        room: room.value,
-        restroom: restroom.value,
-        age: age.value,
-        administration: administration.value,
-        area: area.value,
-        description: description.value,
-        parking: parking.value,
-        picture: allimg,
+        picture: pictures,
       });
     };
 
     const onSubmit = () => {
-      if (ofert.value === "2") {
-        handleRegistrationLeases();
-      }
       if (ofert.value === "1") {
         handleRegistrationSales();
       }
@@ -95,7 +82,7 @@ export default defineComponent({
     const selectedImgIndex = ref(0);
 
     const allimg = ref<File[]>([]);
-    console.log("allimg", allimg.value);
+ 
     const addimg = (event: Event) => {
       const input = event.target as HTMLInputElement;
       const files = input.files;
@@ -131,7 +118,8 @@ export default defineComponent({
     const { data: antiquiyData, isLoading: antiquityLoading } = useQueryAntiquityData();
     const { data: parkingData, isLoading: parkingLoading } = useQueryParkingData();
     const { data: ofertData, isLoading: ofertLoading } = useQueryOferData();
-
+    const { data: cityData, isLoading: cityLoading } = useQueryCityData();
+    
     return {
       allimg,
       onSubmit,
@@ -170,6 +158,8 @@ export default defineComponent({
       propertyData,
       antiquiyData,
       antiquityLoading,
+      cityData,
+      cityLoading
     };
   },
 });
@@ -363,11 +353,12 @@ export default defineComponent({
               class="w-full h-[68px] mt-2 rounded-md"
               placeholder="Ciudad"
             />
+            gol 
             <FlowInput
               id="country"
               v-model="country"
               class="w-full h-[68px] mt-2 rounded-md"
-              placeholder="Pais"
+              placeholder="País"
             />
             <FlowInput
               id="administration"

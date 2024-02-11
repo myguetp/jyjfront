@@ -1,0 +1,1 @@
+export const KEY_QUERY_USER = 'query-user'
