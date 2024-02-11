@@ -31,9 +31,14 @@ export default class AuthService {
 
       const response = await res.json();
       console.log({ response });
-
+      
+      
       const storehttp = useHttpStore()
 
+      storehttp.$patch({ idUser: response.user._id })
+      storehttp.$patch({ useName: response.user.name })
+
+      
 
       if (response.token) {
         this.jwt.value = response.token,

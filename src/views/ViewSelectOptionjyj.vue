@@ -1,13 +1,42 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { RouterView, RouterLink } from "vue-router";
+import { RouterView, RouterLink, useRouter } from "vue-router";
 import MainLayout from "../layouts/MainLayout.vue";
 import TheButtonjyjVue from "../components/TheButtonjyj.vue";
+import { useHttpStore } from "../services/store/httpstore";
+import ShowSales from "./components/sales/ShowSales.vue";
+import { useQueryUser } from './components/user/useQueryUser';
+
+
 
 export default defineComponent({
-  components: { MainLayout, RouterView, RouterLink, TheButtonjyjVue },
+  components: { MainLayout, RouterView, RouterLink, TheButtonjyjVue, ShowSales },
   setup() {
-    return {};
+    const router = useRouter();
+    const storehttp = useHttpStore();
+    const idUser =  storehttp.idUser
+    const { data: dataUser } = useQueryUser(idUser)
+
+    const pictures = [
+      {
+        src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
+        alt: "Picture 2",
+      },
+      {
+        src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg",
+        alt: "Picture 3",
+      },
+      {
+        src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg",
+        alt: "Picture 4",
+      },
+      {
+        src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg",
+        alt: "Picture 5",
+      },
+    ];
+
+    return {dataUser, pictures, storehttp};
   },
 });
 </script>
@@ -50,7 +79,25 @@ export default defineComponent({
         >
           <p>Tus publicaciones por vencer</p>
         </div>
+      
       </section>
+      <div class="mt-6 flex w-full justify-center gap-20">
+          <ShowSales
+            v-for="user in dataUser.data.sales?? []"
+            :key="user._id ?? 0"
+            :city="user.city ?? ''"
+            :pictures="pictures"
+            :containerWidth="'350px'"
+            :carouselItemsToShow="0.5"
+            :price="user.price ?? 0"
+            :administration="user.administration ?? 0"
+            :neighborhood="user.neighborhood ?? ''"
+            :details="`${user.restroom ?? 0} - ${user.room ?? 0} - ${
+              user.parking ?? 0
+            } - ${user.area ?? 0}`"
+            :propertyType="'Venta'"
+          />
+      </div>
     </div>
   </MainLayout>
 </template>

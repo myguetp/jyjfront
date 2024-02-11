@@ -5,11 +5,11 @@ import { useMutation } from "vue-query";
 
 const api = new Api();
 
-export function useMutationSales() {
+export function useMutationSales(idUser: string) {
   return useMutation({
-    mutationKey: [KEY_MUTATION_SALES],
+    mutationKey: [KEY_MUTATION_SALES, idUser],
     mutationFn: (request: SalesRequest) => {
-      return api.sendSales({
+      return api.sendSalesUser(idUser, {
         ...request
       });
     },

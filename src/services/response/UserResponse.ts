@@ -3,10 +3,7 @@ interface Picture {
   type: string
 }
 
-
-
-export interface SalesResponse {
-  _id: string
+export interface Sale {
   ofert: string;
   neighborhood: string;
   city: string;
@@ -23,3 +20,16 @@ export interface SalesResponse {
   parking: string;
   picture: Picture[];
 }
+
+export interface UserResponse {
+  _id:      string;
+  name:     string;
+  lastName: string;
+  city:     string;
+  phone:    string;
+  email:    string;
+  password: string;
+  sales:    Sale[];
+  __v:      number;
+}
+
