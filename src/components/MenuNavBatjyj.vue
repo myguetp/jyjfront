@@ -168,6 +168,21 @@ export default defineComponent({
   </div>
   <div v-if="showMenu">
     <nav class="block gap-y-14 pl-6 shadow-lg">
+      <div v-show="storehttp.tokenAuth !== ''" class="flex gap-4 mt-2 p4">
+        <div class="p-2">
+          <p class="font-bold"> Usuario: {{ storehttp.useName }} </p>
+        <div class="flex gap-2">
+          <TheButtonjyjVue
+            :tamanio="'sm'"
+            class="text-white"
+            texto="Mi perfil"
+            @click="router.push({ name: 'Select' })"
+          />
+          <TheButtonjyjVue :tamanio="'sm'" class="text-white bg-red-400" texto="Cerrar Sesion" @click="cerrarSesion" /> 
+          
+        </div>
+        </div>
+      </div>
       <div class="cursor-pointer" @click="openUs">
         <p class="font-bold text-lg">Nosotros</p>
       </div>
@@ -194,9 +209,10 @@ export default defineComponent({
       <div v-show="storehttp.tokenAuth === ''" class="cursor-pointer" @click="openModal">
         <p class="font-bold text-lg">Ingresar</p>
       </div>
-      <div class="cursor-pointer" @click="router.push({ name: 'SalesLeases' })">
+      <div v-show="storehttp.tokenAuth === ''" class="cursor-pointer" @click="router.push({ name: 'SalesLeases' })">
         <TheButtonjyjVue class="text-white" texto="Publica gratis" :tamanio="'sm'" />
       </div>
+     
     </nav>
   </div>
   <Modaljyj :isOpen="modalOpen" @update:is-open="modalOpen = $event" titulo="COMPLEXES">

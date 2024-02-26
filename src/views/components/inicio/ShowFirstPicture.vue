@@ -1,11 +1,11 @@
 <template>
   <div class="w-auto lg:w-[700px] relative">
     <Carousel id="gallery" :items-to-show="1" :wrap-around="false" v-model="currentSlide">
-      <Slide v-for="picture in pictures" :key="picture.alt">
+      <Slide v-for="file in pictures" :key="file.alt">
         <div class="flex w-full">
-          <img :src="picture.src" :alt="picture.alt" />
+          <img :src="file.src" :alt="file.alt" />
           <p class="absolute bottom-0 left-0 bg-black text-white p-2">
-            {{ picture.text }}
+            {{ file.text }}
           </p>
         </div>
       </Slide>
@@ -17,9 +17,9 @@
       :wrap-around="true"
       v-model="currentSlide"
     >
-      <Slide v-for="picture in pictures" :key="picture.alt">
-        <div class="carousel__item" @click="slideTo(pictures.indexOf(picture))">
-          <img :src="picture.src" :alt="picture.alt" />
+      <Slide v-for="file in pictures" :key="file.alt">
+        <div class="carousel__item" @click="slideTo(pictures.indexOf(file))">
+          <img :src="file.src" :alt="file.alt" />
         </div>
       </Slide>
     </Carousel>

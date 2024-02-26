@@ -5,10 +5,10 @@
   >
     <div class="w-full">
       <carousel :items-to-show="carouselItemsToShow">
-        <slide class="w-full" v-for="(picture, index) in pictures" :key="index">
+        <slide class="w-full" v-for="(file, index) in pictures" :key="index">
           <img
-            :src="picture.src"
-            :alt="picture.alt"
+            :src="file.src"
+            :alt="file.alt"
             :style="{ width: pictureWidth, height: pictureHeight }"
           />
         </slide>

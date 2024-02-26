@@ -7,6 +7,8 @@ import IconInstagram from "../../../components/icons/IconInstagram.vue";
 import IconPinterest from "../../../components/icons/IconPinterest.vue";
 import IconYoutube from "../../../components/icons/IconYouTube.vue";
 import IconLinkedin from "../../../components/icons/IconLinkedin.vue";
+import IconThreads from "../../../components/icons/IconThreads.vue";
+import IconTikTok from "../../../components/icons/IconTikTok.vue";
 import ShowFirstPicture from "./ShowFirstPicture.vue";
 
 export default defineComponent({
@@ -18,28 +20,30 @@ export default defineComponent({
     IconYoutube,
     IconLinkedin,
     ShowFirstPicture,
+    IconThreads,
+    IconTikTok
   },
   setup() {
     const apiData = ref([]);
     const pictures = [
       {
         src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
-        alt: "Picture 2",
+        alt: "file 2",
         text: "hola",
       },
       {
         src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg",
-        alt: "Picture 3",
+        alt: "file 3",
         text: "que",
       },
       {
         src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg",
-        alt: "Picture 4",
+        alt: "file 4",
         text: "mas",
       },
       {
         src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg",
-        alt: "Picture 5",
+        alt: "file 5",
         text: "chao",
       },
     ];
@@ -71,11 +75,13 @@ export default defineComponent({
           </div>
           <div class="block lg:flex justify-center items-center mb-10 mt-2 w-full">
             <section class="flex gap-4 ml-4 lg:ml-0 lg:gap-20">
-              <a class="cursor-pointer" href="#"> <IconFacebook /> </a>
-              <a class="cursor-pointer" href="#"> <IconInstagram /> </a>
-              <a class="cursor-pointer" href="#"> <IconPinterest /> </a>
-              <a class="cursor-pointer" href="#"> <IconYoutube /> </a>
-              <a class="cursor-pointer" href="#"> <IconLinkedin /> </a>
+              <a class="cursor-pointer" href="https://www.facebook.com/profile.php?id=61556012792571" target="_blank"> <IconFacebook /> </a>
+              <a class="cursor-pointer" href="https://www.instagram.com/jjcomplexes/" target="_blank"> <IconInstagram /> </a>
+              <a class="cursor-pointer" href="https://co.pinterest.com/jjcomplexes/" target="_blank"> <IconPinterest /> </a>
+              <a class="cursor-pointer" href="https://www.youtube.com/channel/UC4atKKd6Sag35wN_eR9sz3w" target="_blank"> <IconYoutube /> </a>
+              <a class="cursor-pointer" href="https://www.linkedin.com/in/jjcomplexes-undefined-0b8aab2b1/" target="_blank"> <IconLinkedin /> </a>
+              <a class="cursor-pointer" href="https://www.threads.net/@jjcomplexes" target="_blank"> <IconThreads /> </a>
+              <a class="cursor-pointer" href="https://www.tiktok.com/@jjcomplexes" target="_blank"> <IconTikTok /> </a>
             </section>
           </div>
         </div>

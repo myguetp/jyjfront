@@ -9,6 +9,7 @@ import { useQueryStratumData } from "../../../composable/leases/stratumComposabl
 import { useQueryPropertyData } from "../../../composable/leases/propertyComposable";
 import { useQueryAntiquityData } from "../../../composable/leases/antiquityComposable";
 import { useQueryParkingData } from "../../../composable/leases/parkingComposable";
+// import { useQuerySales } from "./useQuerySales";
 
 export default defineComponent({
   components: { FlowInput, TheButtonjyj },
@@ -22,6 +23,8 @@ export default defineComponent({
       const property = ref(false);
       const parking = ref(false);
       const showFilter = ref(false);
+
+      // const { data: allsales } = useQuerySales()
 
       const onOpen = () => {
         showFilter.value = !showFilter.value;
