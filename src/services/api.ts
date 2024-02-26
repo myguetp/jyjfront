@@ -6,14 +6,15 @@ import { Restroom, type IRestroom } from "./api/RestroomService"
 import { Room, type IRoom } from "./api/RoomService"
 import { Sales, type ISales } from "./api/SalesService"
 import { Stratum, type IStratum } from "./api/StratumService"
-import type { AdvertisementResponse, AntiquityResponse, CityResponse, LeasesResponse, OferResponse, ParkingResponse, RestroomResponse, RoomResponse, SalesResponse, StratumResponse, UserResponse } from "./response"
-import type { LeasesRequest, RegisterRequest, RoomRequest, SalesRequest } from "./request"
+import type { AdvertisementResponse, AntiquityResponse, CityResponse, CommerceResponse, LeasesResponse, OferResponse, ParkingResponse, RestroomResponse, RoomResponse, SalesResponse, StratumResponse, UserResponse } from "./response"
+import type { CommerceRequest, LeasesRequest, RegisterRequest, RoomRequest, SalesRequest } from "./request"
 import { AuthRegister, type IRegister } from "./api/AuthRegister"
 import { Advertisement, type IAdvertisement } from "./api/AdvertisementService"
 import { Parking, type IParking } from "./api/ParkingService"
 import { Leases, type ILeases } from "./api/LeasesService"
 import { User, type IUser } from "./api/UserService"
 import { CountryCity, type ICountryCity } from "./api/CountryCityService"
+import { Commerce, type ICommerce } from "./api/CommerceService"
 
 export class Api {
   private isAuth: IRegister 
@@ -29,7 +30,7 @@ export class Api {
   private isParking: IParking 
   private isUser: IUser 
   private isCountryCity: ICountryCity
-
+  private isCommerce: ICommerce
 
   constructor() {
     this.isOffer = new Offert()
@@ -45,6 +46,7 @@ export class Api {
     this.isParking = new Parking()
     this.isUser = new User()
     this.isCountryCity = new CountryCity()
+    this.isCommerce = new Commerce()
  
   }
 
@@ -136,5 +138,24 @@ export class Api {
 
   getCountryCity(): Promise<CityResponse> {
     return this.isCountryCity.getCountryCity()
+  }
+
+  getCommerce(
+    names?: string,
+    contact?: string,
+    maill?: string,
+    phoneNum?: string,
+    typeService?: string,
+  ): Promise<CommerceResponse> {
+    return this.isCommerce.getCommerce(   
+      names,
+      contact,
+      maill,
+      phoneNum,
+      typeService )
+  }
+
+  sendCommerce(request: CommerceRequest): Promise<AxiosResponse<CommerceResponse>> {
+    return this.isCommerce.sendCommerce(request)
   }
 }

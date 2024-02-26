@@ -16,15 +16,15 @@ export default {
     const pictures = [
       {
         src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
-        alt: "Picture 2",
+        alt: "file 2",
       },
       {
         src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg",
-        alt: "Picture 3",
+        alt: "file 3",
       },
       {
         src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg",
-        alt: "Picture 5",
+        alt: "file 5",
       },
     ];
 

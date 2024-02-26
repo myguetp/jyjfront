@@ -5,10 +5,10 @@
   >
     <div class="w-full">
       <carousel :items-to-show="carouselItemsToShow">
-        <slide class="w-full" v-for="(picture, index) in pictures" :key="index">
+        <slide class="w-full" v-for="(file, index) in pictures" :key="index">
           <img
-            :src="picture.src"
-            :alt="picture.alt"
+            :src="file.src"
+            :alt="file.alt"
             :style="{ width: pictureWidth, height: pictureHeight }"
           />
         </slide>
@@ -20,18 +20,17 @@
       </carousel>
     </div>
     <div class="flex justify-between gap-5 m-2">
-      <p class="font-bold">{{ city }}</p>
+      <p class="font-bold">{{ city }} - {{ neighborhood }}</p>
       <TheButtonjyj
-        class="bg-gray-300"
+        class="bg-gray-300 font-bold"
         texto="Ver mas"
         :tamanio="'sm'"
         @click="OnClick()"
       />
     </div>
     <div class="mt-2 ml-4">
-      <p class="font-bold">Barrio {{ neighborhood }}</p>
-      <p class="font-bold">Precio {{ price }}</p>
-      <p class="font-bold">Administracion {{ administration }}</p>
+      <p class="font-bold">$ {{ price }}</p>
+      <p class="font-bold">{{ administration }}</p>
       <p>{{ details }}</p>
       <p class="font-bold">{{ propertyType }}</p>
     </div>
@@ -87,7 +86,7 @@ export default defineComponent({
     },
     administration: {
       type: String,
-      required: true,
+      required: false,
     },
     neighborhood: {
       type: String,
