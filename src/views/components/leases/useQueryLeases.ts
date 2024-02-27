@@ -5,8 +5,10 @@ import { Api } from "@/services/api";
 const api = new Api
 
 export function useQueryLeases() {
+  const queryKey = [KEY_QUERY_LEASES];
+
   return useQuery({
-    queryKey: [KEY_QUERY_LEASES],
-    queryFn: () => api.getLeases()
-  })
+    queryKey,
+    queryFn: () => api.getCommerce(),
+  });
 }

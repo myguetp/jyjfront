@@ -7,13 +7,13 @@ export interface File {
 }
 
 export interface CommerceResponse {
-  _id:         string;
-  files:       File[];
-  names:       string;
-  contact:     string;
-  maill:       string;
-  phoneNum:    string;
-  typeService: string;
-  __v:         number;
+    _id:         string;
+    files:       File[];
+    names:       string;
+    contact:     string;
+    maill:       string;
+    phoneNum:    string;
+    typeService: string;
+    __v:         number;
 }
 

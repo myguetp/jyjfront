@@ -1,5 +1,4 @@
 <script lang="ts">
-import { useRouter } from "vue-router";
 import MainLayout from "../layouts/MainLayout.vue";
 import FiltersLeases from "./components/leases/FiltersLeases.vue";
 import ShowLeases from "./components/leases/ShowLeases.vue";
@@ -13,24 +12,8 @@ export default {
   },
   setup() {
     const { data: allLeases } = useQueryLeases();
-    const pictures = [
-      {
-        src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
-        alt: "file 2",
-      },
-      {
-        src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg",
-        alt: "file 3",
-      },
-      {
-        src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg",
-        alt: "file 5",
-      },
-    ];
 
-    const router = useRouter();
-
-    return { pictures, allLeases, router };
+    return { allLeases };
   },
 };
 </script>
@@ -40,27 +23,21 @@ export default {
       <div class="box-shadow p-2 w-[20%] h-auto">
         <FiltersLeases />
       </div>
-      <div
+     <div
         class="w-[90%] h-auto rounded-md shadow snap-y overflow-auto flex flex-wrap ml-4 lg:ml-0"
       >
-        <div class="block md:flex lg:flex gap-6 md:m-5 lg:m-5 flex-wrap">
+        <template v-if="allLeases?.data?.length">
           <ShowLeases
-            v-for="leases in allLeases?.data ?? []"
-            :key="leases._id ?? 0"
-            :city="leases.city ?? ''"
-            :pictures="pictures"
-            :containerWidth="'350px'"
-            :carouselItemsToShow="0.5"
-            :price="leases.price ?? 0"
-            :administration="leases.administration ?? 0"
-            :neighborhood="leases.neighborhood ?? ''"
-            :details="`${leases.restroom ?? 0} - ${leases.room ?? 0} - ${
-              leases.parking ?? 0
-            } - ${leases.area ?? 0}`"
-            :propertyType="'Arriendo'"
-            @click="router.push({ name: 'InfoSummary' })"
+            v-for="commerce in allLeases.data"
+            :names="commerce.names"
+            :mail="commerce.mail"
+            :contact="commerce.contact"
+            :key="commerce._id ?? 0"
+            :phoneNum="commerce.phoneNum"
+            :typeService="commerce.typeService"
+            :pictures="commerce.files.map(file => ({ src: `http://localhost:3001/uploads/${file.filename}`, alt: file.originalname}))"
           />
-        </div>
+        </template>
       </div>
     </section>
   </MainLayout>
