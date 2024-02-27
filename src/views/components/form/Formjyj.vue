@@ -17,8 +17,10 @@ import { useQueryCityData } from "../../../composable/leases/cityComposable";
 import { useHttpStore } from "@/services/store/httpstore";
 
 interface Picture {
-  name: string
-  type: string
+  originalname: string;
+  filename:     string;
+  mimetype:     string;
+  size:         number;
 }  
 
 export default defineComponent({
@@ -27,6 +29,9 @@ export default defineComponent({
     const storeSale = useSaleStore();
 
     const ofert = ref("");
+    const email = ref("");
+    const phone = ref("");
+    const flower = ref("");
     const neighborhood = ref("");
     const city = ref("");
     const country = ref("");
@@ -49,65 +54,86 @@ export default defineComponent({
 
     const handleRegistrationSales = async () => {
       const pictures: Picture[] = allimg.value.map((file) => {
+        console.log('file', file)
         return {
-          name: file.name,           
-          type: file.type,
+          originalname: file.originalname,
+          filename: file.filename,
+          mimetype: file.mimetype,
+          size: file.size
         };
       });
       await mutateSales({
         ofert: ofert.value,
+        email: email.value,
+        phone: phone.value,
+        parking: parking.value,
+        flower: flower.value,
         neighborhood: neighborhood.value,
-        city: city.value,
         country: country.value,
+        city: city.value,
         property: property.value,
         stratum: stratum.value,
-        price: price.value,
+        price: +price.value,
         room: room.value,
         restroom: restroom.value,
         age: age.value,
         administration: administration.value,
-        area: area.value,
+        area: +area.value,
         description: description.value,
-        parking: parking.value,
-        picture: pictures,
+        files: pictures
       });
     };
 
     const onSubmit = () => {
-      if (ofert.value === "1") {
-        handleRegistrationSales();
-      }
+     handleRegistrationSales();
     };
 
     const selectedImgIndex = ref(0);
 
-    const allimg = ref<File[]>([]);
+    const allimg = ref<Picture[]>([]);
+
+    console.log('allImg dd', allimg)
  
     const addimg = (event: Event) => {
-      const input = event.target as HTMLInputElement;
-      const files = input.files;
+  const input = event.target as HTMLInputElement;
+  const files = input.files;
 
-      if (files && files.length > 0) {
-        if (allimg.value.length + files.length > 10) {
-          alert("No se pueden agregar más de 10 archivos.");
-          return;
-        }
-        for (let i = 0; i < files.length; i++) {
-          allimg.value.push(files[i]);
-        }
+  if (files && files.length > 0) {
+    if (allimg.value.length + files.length > 10) {
+      alert("No se pueden agregar más de 10 archivos.");
+      return;
+    }
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (file instanceof Blob) {
+        const fileInfo = {
+          originalname: file.name,
+          filename: file.name,
+          mimetype: file.type,
+          size: file.size,
+        };
+        allimg.value.push(fileInfo);
+      } else {
+        console.error("El archivo no es de tipo Blob:", file);
       }
-      selectedImgIndex.value = allimg.value.length - 1;
-    };
+    }
+  }
 
-    const getImgPreview = (file: File): string => {
-      return URL.createObjectURL(file);
-    };
+  selectedImgIndex.value = allimg.value.length - 1;
+};
 
-    const removeImg = (index) => {
+const getImgPreview = (fileInfo: any): string => {
+  // Puedes acceder a la propiedad 'originalname' o cualquier otra propiedad que necesites
+  const preview = URL.createObjectURL(new Blob(fileInfo));
+  console.log('Preview URL:', preview);
+  return preview;
+};
+    const removeImg = (index: any) => {
       allimg.value.splice(index, 1);
     };
 
-    const selectImg = (index) => {
+    const selectImg = (index: any) => {
       selectedImgIndex.value = index;
     };
 
@@ -135,13 +161,15 @@ export default defineComponent({
       ofertLoading,
       neighborhood,
       city,
+      phone,
+      email,
       country,
       property,
       stratum,
       price,
       room,
-      parking,
       restroom,
+      parking,
       age,
       administration,
       area,
@@ -176,6 +204,7 @@ export default defineComponent({
             <div v-if="ofertLoading" class="loading-indicator">Cargando datos...</div>
 
             <Multiselect
+              v-else
               id="ofert"
               v-model="ofert"
               :options="
@@ -193,6 +222,7 @@ export default defineComponent({
               </div>
 
               <Multiselect
+                v-else
                 id="property"
                 v-model="property"
                 :options="
@@ -206,30 +236,30 @@ export default defineComponent({
               />
             </div>
             <div class="mt-2">
-              <div v-if="roomLoading" class="loading-indicator">Cargando datos...</div>
+              <div v-if="restroomLoading" class="loading-indicator">Cargando datos...</div>
 
               <Multiselect
-                id="room"
-                v-model="room"
+                id="restroom"
+                v-model="restroom"
                 :options="
-                  roomData?.data.map((room) => ({ value: room.id, label: room.name }))
+                restromData?.data.map((restroom) => ({ value: restroom.id, label: restroom.name }))
                 "
                 class="h-[68px] rounded-md"
                 placeholder="Número de baños"
               />
             </div>
             <div class="mt-2">
-              <div v-if="restroomLoading" class="loading-indicator">
+              <div v-if="roomLoading" class="loading-indicator">
                 Cargando datos...
               </div>
 
               <Multiselect
-                id="restroom"
-                v-model="restroom"
+                id="room"
+                v-model="room"
                 :options="
-                  restromData?.data.map((restroom) => ({
-                    value: restroom.id,
-                    label: restroom.name,
+                  roomData?.data.map((room) => ({
+                    value: room.id,
+                    label: room.name,
                   }))
                 "
                 class="h-[68px] rounded-md"
@@ -289,52 +319,7 @@ export default defineComponent({
               />
             </div>
           </div>
-          <div class="block w-full lg:w-[40%] mt-16 ml-4">
-            <div class="mt-2 border-gray-600">
-              <section class="block w-full mt-16">
-                <div class="mt-2 border-gray-600 w-full">
-                  <section class="block w-full mt-16">
-                    <div class="mt-2 border-gray-600 w-full">
-                      <section id="multi-selector-uniq" class="mb-4 w-full">
-                        <input
-                          id="files"
-                          type="file"
-                          multiple
-                          @change="addimg"
-                          class="mb-4"
-                        />
-                        <div
-                          id="preview"
-                          class="flex w-full h-[100%] gap-2 border border-gray-400"
-                        >
-                          <div
-                            v-for="(file, index) in allimg"
-                            :key="file.name"
-                            class="relative"
-                          >
-                            <img
-                              :src="getImgPreview(file)"
-                              alt="Vista Previa de la Imagen"
-                              :class="{ 'selected-img': index === selectedImgIndex }"
-                              class="flex w-full h-60 object-cover rounded cursor-pointer"
-                              @click="selectImg(index)"
-                            />
-                            <button
-                              @click="removeImg(index)"
-                              class="absolute top-0 right-0 text-black bg-white p-1 rounded-full cursor-pointer font-bold"
-                            >
-                              X
-                            </button>
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </section>
-                </div>
-              </section>
-            </div>
-          </div>
-          <div class="block w-full lg:w-[30%] ml-4">
+          <div class="block w-full lg:w-[30%] lg:ml-4">
             <FlowInput
               id="price"
               v-model="price"
@@ -353,7 +338,6 @@ export default defineComponent({
               class="w-full h-[68px] mt-2 rounded-md"
               placeholder="Ciudad"
             />
-            gol 
             <FlowInput
               id="country"
               v-model="country"
@@ -372,6 +356,58 @@ export default defineComponent({
               class="w-full h-[68px] mt-2 rounded-md"
               placeholder="Área construída"
             />
+            <FlowInput
+              id="email"
+              type="email"
+              v-model="email"
+              class="w-full h-[68px] mt-2 rounded-md"
+              placeholder="Correo electronico"
+            />
+            <FlowInput
+              id="phone"
+              v-model="phone"
+              class="w-full h-[68px] mt-2 rounded-md"
+              placeholder="Celular"
+            />
+          </div>
+
+          <div class="block w-full lg:w-[40%] mt-16 ml-4">
+            <div class="mt-2 border-gray-600">
+              <section class="block w-full mt-16">
+                <div class="mt-2 border-gray-600 w-full">
+                  <section class="block w-full mt-16">
+                    <div class="mt-2 border-gray-600 w-full">
+                      <section id="multi-selector-uniq" class="mb-4 w-full">
+                          <input
+                            id="files"
+                            type="file"
+                            multiple
+                            @change="addimg"
+                            class="mb-4"
+                          />
+                          <div id="preview" class="flex w-full h-[100%] gap-2 border border-gray-400">
+                            <div v-for="(file, index) in allimg" :key="file.originalname" class="relative">
+                              <img
+                                :src="getImgPreview(file)"
+                                alt="Vista Previa de la Imagen"
+                                :class="{ 'selected-img': index === selectedImgIndex }"
+                                class="flex w-full h-60 object-cover rounded cursor-pointer"
+                                @click="selectImg(index)"
+                              />
+                              <button
+                                @click="removeImg(index)"
+                                class="absolute top-0 right-0 text-black bg-white p-1 rounded-full cursor-pointer font-bold"
+                              >
+                                X
+                              </button>
+                            </div>
+                          </div>
+                        </section>
+                    </div>
+                  </section>
+                </div>
+              </section>
+            </div>
             <div class="mt-4">
               <FlowTexarea
                 v-model="description"
@@ -381,11 +417,12 @@ export default defineComponent({
               />
             </div>
           </div>
+          
         </section>
       </div>
-      <div class="flex justify-center lg:justify-end">
-        <TheButtonjyj class="text-white font-bold" texto="Guardar" @click="onSubmit" />
-      </div>
+          <div class="flex justify-center lg:justify-end pb-4">
+            <TheButtonjyj class="text-white font-bold" texto="Guardar" @click="onSubmit" />
+          </div>
     </form>
   </section>
 </template>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import MainLayout from "../layouts/MainLayout.vue";
 import TheButtonjyjVue from "../components/TheButtonjyj.vue";
@@ -17,33 +17,46 @@ export default defineComponent({
     const idUser =  storehttp.idUser
     const { data: dataUser } = useQueryUser(idUser)
 
-    return {dataUser, storehttp, router};
+    const userPictures = computed(() => {
+  if (dataUser.value.sales) {
+    const files = dataUser.value.sales[0]?.files;
+
+    return files?.map((file: any) => ({
+      src: file.filename,
+      alt: file.originalname ?? 'imagenn',
+    })) ?? [];
+  }
+
+  return [];
+});
+
+
+    return {dataUser, storehttp, router, userPictures};
   },
 });
 </script>
 
 <template>
   <MainLayout>
-    <div class="flex w-full">
+    <div class="flex w-full p-4 gap-2">
 
-      <section class="block">
+      <section class="block bg-blue-400 p-4 w-[300px]">
       <h3>Quiero publicar</h3>
       <p>Escoge la opción que desees si eres una empresa que ofrece productos o servicios relacionados con el hogar</p>
         <div>
-          <TheButtonjyjVue class="text-white font-bold" texto="Anuncio"  @click="router.push({ name: 'Register' })"/>
+          <TheButtonjyjVue class="text-white font-bold" texto="Anuncio" :tamanio="'sm'"  @click="router.push({ name: 'Register' })"/>
         </div>
-        <div>
-          <TheButtonjyjVue class="text-white font-bold" texto="Inmueble" @click="router.push({ name: 'Register' })" />
+        <div class="mt-2">
+          <TheButtonjyjVue class="text-white font-bold" texto="Inmueble" :tamanio="'sm'" @click="router.push({ name: 'Register' })" />
         </div>
         <p>Mostrar mis opciones favoritas</p>
         <div>
-          <TheButtonjyjVue class="text-white font-bold" texto="Inmuebles Favoritos" @click="router.push({ name: 'Register' })" />
+          <TheButtonjyjVue class="text-white font-bold" texto="Inmuebles" :tamanio="'sm'" @click="router.push({ name: 'Register' })" />
         </div>
-        <div>
-          <TheButtonjyjVue class="text-white font-bold" texto="Anuncios favoritos"  @click="router.push({ name: 'Register' })"/>
+        <div class="mt-2">
+          <TheButtonjyjVue class="text-white font-bold" texto="Anuncios" :tamanio="'sm'"  @click="router.push({ name: 'Register' })"/>
         </div>
-       <img v-if="dataUser && dataUser.data && dataUser.data.sales && dataUser.data.sales[0] && dataUser.data.sales[0].file && dataUser.data.sales[0].file[0]" :src="dataUser.data.sales[0].file[0].name" alt="Descripción de la imagen">
-        <!-- <img src="blob:http://localhost:3000/3b0ac5f5-3a2e-4c5c-aa9d-f5def23b0dab" alt="Imagen">  -->
+     
 
       </section>
 
@@ -52,7 +65,7 @@ export default defineComponent({
             v-for="user in dataUser?.data?.sales?? []"
             :key="user._id ?? 0"
             :city="user.city ?? ''"
-            :pictures="user.file"
+            :pictures="userPictures"
             :containerWidth="'350px'"
             :carouselItemsToShow="0.5"
             :price="user.price ?? 0"

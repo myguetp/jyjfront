@@ -1,5 +1,5 @@
 
-export interface File {
+export interface Filet {
   originalname: string;
   filename:     string;
   mimetype:     string;
@@ -8,7 +8,7 @@ export interface File {
 
 export interface CommerceRequest {
   _id:         string;
-  files:       File[];
+  files:       Filet[];
   names:       string;
   contact:     string;
   maill:       string;

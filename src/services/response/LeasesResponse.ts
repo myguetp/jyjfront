@@ -12,7 +12,7 @@ export interface LeasesResponse {
   restroom:       string
   age:            string
   administration: string
-  area:           string
+  area:           number
   description:    string
   filename:       string[]
 }

@@ -1,14 +1,14 @@
 <template>
   <section
-    class="shadow-inner box-shadow border hover:border-[#445c64] rounded-md"
+    class="shadow-inner box-shadow border hover:border-[#445c64] rounded-md ml-4"
     :style="{ width: containerWidth, padding: containerPadding, maxWidth: '100%' }"
   >
     <div class="w-full">
       <carousel :items-to-show="carouselItemsToShow">
-        <slide class="w-full" v-for="(file, index) in pictures" :key="index">
+        <slide class="w-full" v-for="(picture, index) in pictures" :key="index">
           <img
-            :src="file.src"
-            :alt="file.alt"
+            :src="picture.src"
+            :alt="picture.alt"
             :style="{ width: pictureWidth, height: pictureHeight }"
           />
         </slide>
@@ -20,29 +20,27 @@
       </carousel>
     </div>
     <div class="flex justify-between gap-5 m-2">
-      <p class="font-bold">{{ city }}</p>
+      <p class="font-bold">{{ names }}</p>
       <TheButtonjyj
-        class="bg-gray-300"
+        class="bg-gray-300 font-bold"
         texto="Ver mas"
         :tamanio="'sm'"
         @click="OnClick()"
       />
     </div>
     <div class="mt-2 ml-4">
-      <p class="font-bold">Barrio {{ neighborhood }}</p>
-      <p class="font-bold">Precio {{ price }}</p>
-      <p class="font-bold">Administracion {{ administration }}</p>
-      <p>{{ details }}</p>
-      <p class="font-bold">{{ propertyType }}</p>
+      <p class="font-bold">{{ contact }}</p>
+      <p class="font-bold">{{ mail }}</p>
+      <p>{{ phoneNum }}</p>
+      <p class="font-bold">{{ typeService }}</p>
     </div>
   </section>
 </template>
-
 <script lang="ts">
 import { defineComponent } from "vue";
 import type { PropType } from "vue";
-import "vue3-carousel/dist/carousel.css";
 import TheButtonjyj from "../../../components/TheButtonjyj.vue";
+import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
 export default defineComponent({
@@ -54,7 +52,7 @@ export default defineComponent({
     Navigation,
   },
   props: {
-    pictures: {
+      pictures: {
       type: Array as PropType<{ src: string; alt: string }[]>,
       required: true,
     },
@@ -78,33 +76,31 @@ export default defineComponent({
       type: String,
       default: "290px",
     },
-    price: {
-      type: Number,
-      required: true,
-    },
-    city: {
+    contact: {
       type: String,
       required: true,
     },
-    administration: {
+    names: {
       type: String,
       required: true,
     },
-    neighborhood: {
+    mail: {
+      type: String,
+      required: false,
+    },
+  
+    phoneNum: {
       type: String,
       required: true,
     },
-    details: {
-      type: String,
-      required: true,
-    },
-    propertyType: {
+    typeService: {
       type: String,
       required: true,
     },
   },
   emits: ["click"],
   setup(props, { emit }) {
+    console.log('pro', props.pictures);
     const OnClick = () => emit("click");
 
     return { OnClick, props };
