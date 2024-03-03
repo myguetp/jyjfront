@@ -1,6 +1,6 @@
 import type { SalesRequest } from "@/services/request";
-import { KEY_MUTATION_SALES } from "./constants";
 import { Api } from "@/services/api";
+import { KEY_MUTATION_SALES } from "./constants";
 import { useMutation } from "vue-query";
 
 const api = new Api();
