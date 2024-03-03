@@ -1,10 +1,6 @@
 
-export interface File {
-  originalname: string;
-  filename:     string;
-  mimetype:     string;
-  size:         number;
-}
+import type { File } from ".";
+
 
 export interface CommerceResponse {
     _id:         string;
@@ -14,6 +10,7 @@ export interface CommerceResponse {
     maill:       string;
     phoneNum:    string;
     typeService: string;
+    description: string;
     __v:         number;
 }
 

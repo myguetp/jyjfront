@@ -89,14 +89,16 @@ export default defineComponent({
         <div class="p-6">
           <TheButtonjyjVue class="text-white" texto="Contactame" />
           <div class="flex rounded border border- border-gray-500 w-72 mt-2 justify-between items-center">
-          <span class="font-thin p-4">Valor administración</span>
-          <p class="p-4 font-bold"> $ {{ storeSale.administration }}</p>
-        </div>
-        <div class="flex rounded border border- border-gray-500 w-72 mt-2 justify-between items-center">
           <span class="font-thin p-4">Valor inmueble</span>
           <p class="p-4 font-bold"> $ {{ storeSale.price }}</p>
         </div>
+          <div class="flex rounded border border- border-gray-500 w-72 mt-2 justify-between items-center">
+          <span class="font-thin p-4">Valor administración</span>
+          <p class="p-4 font-bold"> $ {{ storeSale.administration }}</p>
         </div>
+      
+        </div>
+          <TheButtonjyjVue class="text-white bg-yellow-600" :tamanio="'sm'" texto="Favorito" />
       </section>
    
     </div>
