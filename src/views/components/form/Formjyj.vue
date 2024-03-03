@@ -92,7 +92,6 @@ export default defineComponent({
 
     const allimg = ref<Picture[]>([]);
 
-    console.log('allImg dd', allimg)
  
     const addimg = (event: Event) => {
   const input = event.target as HTMLInputElement;
@@ -106,29 +105,31 @@ export default defineComponent({
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      if (file instanceof Blob) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
         const fileInfo = {
           originalname: file.name,
           filename: file.name,
           mimetype: file.type,
           size: file.size,
+          dataURL: e?.target?.result,
         };
+
         allimg.value.push(fileInfo);
-      } else {
-        console.error("El archivo no es de tipo Blob:", file);
-      }
+      };
+
+      reader.readAsDataURL(file);
     }
   }
 
   selectedImgIndex.value = allimg.value.length - 1;
-};
+    };
 
-const getImgPreview = (fileInfo: any): string => {
-  // Puedes acceder a la propiedad 'originalname' o cualquier otra propiedad que necesites
-  const preview = URL.createObjectURL(new Blob(fileInfo));
-  console.log('Preview URL:', preview);
-  return preview;
-};
+    const getImgPreview = (fileInfo) => {
+      return fileInfo.dataURL;
+    };
+
     const removeImg = (index: any) => {
       allimg.value.splice(index, 1);
     };
@@ -388,12 +389,12 @@ const getImgPreview = (fileInfo: any): string => {
                           <div id="preview" class="flex w-full h-[100%] gap-2 border border-gray-400">
                             <div v-for="(file, index) in allimg" :key="file.originalname" class="relative">
                               <img
-                                :src="getImgPreview(file)"
-                                alt="Vista Previa de la Imagen"
-                                :class="{ 'selected-img': index === selectedImgIndex }"
-                                class="flex w-full h-60 object-cover rounded cursor-pointer"
-                                @click="selectImg(index)"
-                              />
+                                  :src="getImgPreview(file)"
+                                  alt="Vista Previa de la Imagen"
+                                  :class="{ 'selected-img': index === selectedImgIndex }"
+                                  class="flex w-full h-60 object-cover rounded cursor-pointer"
+                                  @click="selectImg(index)"
+                                />
                               <button
                                 @click="removeImg(index)"
                                 class="absolute top-0 right-0 text-black bg-white p-1 rounded-full cursor-pointer font-bold"

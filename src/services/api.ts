@@ -6,7 +6,7 @@ import { Restroom, type IRestroom } from "./api/RestroomService"
 import { Room, type IRoom } from "./api/RoomService"
 import { Sales, type ISales } from "./api/SalesService"
 import { Stratum, type IStratum } from "./api/StratumService"
-import type { AdvertisementResponse, AntiquityResponse, CityResponse, CommerceResponse, LeasesResponse, OferResponse, ParkingResponse, RestroomResponse, RoomResponse, SalesResponse, StratumResponse, UserResponse } from "./response"
+import type { AdvertisementResponse, AntiquityResponse, CityResponse, CommerceResponse, LeasesResponse, OferResponse, ParkingResponse, RestroomResponse, RoomResponse, SalesResponse, SpecialityResponse, StratumResponse, UserResponse } from "./response"
 import type { CommerceRequest, LeasesRequest, RegisterRequest, RoomRequest, SalesRequest } from "./request"
 import { AuthRegister, type IRegister } from "./api/AuthRegister"
 import { Advertisement, type IAdvertisement } from "./api/AdvertisementService"
@@ -15,6 +15,7 @@ import { Leases, type ILeases } from "./api/LeasesService"
 import { User, type IUser } from "./api/UserService"
 import { CountryCity, type ICountryCity } from "./api/CountryCityService"
 import { Commerce, type ICommerce } from "./api/CommerceService"
+import { Speciality, type ISpeciality } from "./api/SpecialityService"
 
 export class Api {
   private isAuth: IRegister 
@@ -31,6 +32,7 @@ export class Api {
   private isUser: IUser 
   private isCountryCity: ICountryCity
   private isCommerce: ICommerce
+  private isSpeciality: ISpeciality
 
   constructor() {
     this.isOffer = new Offert()
@@ -47,6 +49,7 @@ export class Api {
     this.isUser = new User()
     this.isCountryCity = new CountryCity()
     this.isCommerce = new Commerce()
+    this.isSpeciality = new Speciality()
  
   }
 
@@ -157,5 +160,9 @@ export class Api {
 
   sendCommerce(request: CommerceRequest): Promise<AxiosResponse<CommerceResponse>> {
     return this.isCommerce.sendCommerce(request)
+  }
+
+  getSpeciality(): Promise<SpecialityResponse> {
+    return this.isSpeciality.getSpeciality()
   }
 }

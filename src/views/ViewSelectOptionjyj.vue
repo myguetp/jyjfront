@@ -47,14 +47,14 @@ export default defineComponent({
           <TheButtonjyjVue class="text-white font-bold" texto="Anuncio" :tamanio="'sm'"  @click="router.push({ name: 'Register' })"/>
         </div>
         <div class="mt-2">
-          <TheButtonjyjVue class="text-white font-bold" texto="Inmueble" :tamanio="'sm'" @click="router.push({ name: 'Register' })" />
+          <TheButtonjyjVue class="text-white font-bold" texto="Inmueble" :tamanio="'sm'" @click="router.push({ name: 'Commerce' })" />
         </div>
         <p>Mostrar mis opciones favoritas</p>
         <div>
           <TheButtonjyjVue class="text-white font-bold" texto="Inmuebles" :tamanio="'sm'" @click="router.push({ name: 'Register' })" />
         </div>
         <div class="mt-2">
-          <TheButtonjyjVue class="text-white font-bold" texto="Anuncios" :tamanio="'sm'"  @click="router.push({ name: 'Register' })"/>
+          <TheButtonjyjVue class="text-white font-bold" texto="Anuncios" :tamanio="'sm'"  @click="router.push({ name: 'Commerce' })"/>
         </div>
      
 

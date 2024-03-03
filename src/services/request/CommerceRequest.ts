@@ -14,5 +14,6 @@ export interface CommerceRequest {
   maill:       string;
   phoneNum:    string;
   typeService: string;
+  description: string;
   __v:         number;
 }

@@ -1,4 +1,4 @@
-import type { SalesRequest } from "../request";
+import type { SalesResponse } from ".";
 
 export interface UserResponse {
   _id:      string;
@@ -8,7 +8,7 @@ export interface UserResponse {
   phone:    string;
   email:    string;
   password: string;
-  sales:    SalesRequest[];
+  sales:    SalesResponse[];
   __v:      number;
 }
 
