@@ -1,16 +1,16 @@
 
-import type { File } from ".";
-
-
 export interface CommerceResponse {
-    _id:         string;
-    files:       File[];
-    names:       string;
-    contact:     string;
-    maill:       string;
-    phoneNum:    string;
-    typeService: string;
-    description: string;
-    __v:         number;
+  files?: {
+    originalname: string;
+    filename: string;
+    mimetype: string;
+    size: number;
+  }[];
+  names: string;
+  contact: string;
+  maill: string;
+  phoneNum: string;
+  typeService: string;
+  descripton: string;
 }
 

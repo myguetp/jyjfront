@@ -25,7 +25,7 @@ export default class AuthService {
         },
         body: JSON.stringify({
           email: email,
-          password: password
+          password: password 
         })
       });
 

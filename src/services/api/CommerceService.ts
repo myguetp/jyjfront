@@ -31,7 +31,7 @@ export class Commerce implements ICommerce {
     phoneNum?: string,
     typeService?: string,
   ): Promise<CommerceResponse> {
-    let route = `${this.url}/files/byAllData`;
+    let route = `${this.url}/filesd/byAllData`;
   
     const queryParams: Record<string, any> = {
       names,
@@ -55,7 +55,7 @@ export class Commerce implements ICommerce {
 
  
   sendCommerce(data: CommerceRequest): Promise<AxiosResponse<CommerceResponse>> {
-    const route = `${this.url}/files/uploads`
+    const route = `${this.url}/filesd/uploads`
     return http.post(route, data)
   }
 }

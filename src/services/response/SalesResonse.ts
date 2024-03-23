@@ -3,6 +3,8 @@ export interface File {
   filename:     string;
   mimetype:     string;
   size:         number;
+  _id: string;
+  __v: number;
 }
 
 
