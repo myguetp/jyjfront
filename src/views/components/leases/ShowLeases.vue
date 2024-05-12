@@ -1,6 +1,6 @@
 <template>
   <section
-    class="shadow-inner box-shadow border hover:border-[#445c64] rounded-md ml-4"
+    class="shadow-inner box-shadow border hover:border-[#445c64] rounded-md ml-4 mt-4"
     :style="{ width: containerWidth, padding: containerPadding, maxWidth: '100%' }"
   >
     <div class="w-full">
@@ -9,7 +9,7 @@
           <img
             :src="picture.src"
             :alt="picture.alt"
-            :style="{ width: pictureWidth, height: pictureHeight }"
+            :style="{ width: pictureWidth, height: pictureHeight, }"
           />
         </slide>
 

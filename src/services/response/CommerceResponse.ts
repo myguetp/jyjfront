@@ -17,3 +17,8 @@ export interface CommerceResponse {
     __v:         number;
 }
 
+export interface ListcommerceResponse {
+  id: string
+  name: string
+}
+

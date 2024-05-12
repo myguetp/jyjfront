@@ -6,7 +6,7 @@ import { Restroom, type IRestroom } from "./api/RestroomService"
 import { Room, type IRoom } from "./api/RoomService"
 import { Sales, type ISales } from "./api/SalesService"
 import { Stratum, type IStratum } from "./api/StratumService"
-import type { AdvertisementResponse, AntiquityResponse, CityResponse, CommerceResponse, LeasesResponse, OferResponse, ParkingResponse, RestroomResponse, RoomResponse, SalesResponse, StratumResponse, UserResponse } from "./response"
+import type { AdvertisementResponse, AntiquityResponse, CityResponse, CommerceResponse, LeasesResponse, ListcommerceResponse, OferResponse, ParkingResponse, RestroomResponse, RoomResponse, SalesResponse, StratumResponse, UserResponse } from "./response"
 import type { CommerceRequest, LeasesRequest, RegisterRequest, RoomRequest, SalesRequest } from "./request"
 import { AuthRegister, type IRegister } from "./api/AuthRegister"
 import { Advertisement, type IAdvertisement } from "./api/AdvertisementService"
@@ -157,5 +157,9 @@ export class Api {
 
   sendCommerce(request: CommerceRequest): Promise<AxiosResponse<CommerceResponse>> {
     return this.isCommerce.sendCommerce(request)
+  }
+
+  getCommerces(): Promise<ListcommerceResponse> {
+    return this.isCommerce.getCommerces()
   }
 }

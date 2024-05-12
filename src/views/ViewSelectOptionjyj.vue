@@ -44,19 +44,12 @@ export default defineComponent({
       <h3>Quiero publicar</h3>
       <p>Escoge la opción que desees si eres una empresa que ofrece productos o servicios relacionados con el hogar</p>
         <div>
-          <TheButtonjyjVue class="text-white font-bold" texto="Anuncio" :tamanio="'sm'"  @click="router.push({ name: 'Register' })"/>
+          <TheButtonjyjVue class="text-white font-bold" texto="Anuncio" :tamanio="'sm'"  @click="router.push({ name: 'Commerce' })"/>
         </div>
         <div class="mt-2">
           <TheButtonjyjVue class="text-white font-bold" texto="Inmueble" :tamanio="'sm'" @click="router.push({ name: 'Register' })" />
         </div>
-        <p>Mostrar mis opciones favoritas</p>
-        <div>
-          <TheButtonjyjVue class="text-white font-bold" texto="Inmuebles" :tamanio="'sm'" @click="router.push({ name: 'Register' })" />
-        </div>
-        <div class="mt-2">
-          <TheButtonjyjVue class="text-white font-bold" texto="Anuncios" :tamanio="'sm'"  @click="router.push({ name: 'Register' })"/>
-        </div>
-     
+      
 
       </section>
 

@@ -16,7 +16,7 @@ export default defineComponent({
       default: "md", // Tamaño predeterminado
     },
     tipo: {
-      type: String,
+      type:  String as () => "button" | "submit" | "reset" ,
       default: "button", // Tipo predeterminado
     },
     icon: {
@@ -51,7 +51,7 @@ export default defineComponent({
 
 <template>
   <button
-    :type="'button'"
+    :type="tipo"
     :class="[clase, 'bg-[#445c64] rounded-md ', tamanioClass]"
     @click="OnClick"
   >
