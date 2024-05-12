@@ -29,7 +29,7 @@ export default defineComponent({
       {
         src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
         alt: "file 2",
-        text: "hola",
+        text: "hola que hace",
       },
       {
         src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg",

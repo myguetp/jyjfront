@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios'
 import http from '../http'
-import type { CommerceResponse } from '../response'
+import type { CommerceResponse, ListcommerceResponse } from '../response'
 import type { CommerceRequest } from '../request'
 
 export interface ICommerce {
@@ -14,6 +14,8 @@ export interface ICommerce {
   ) => Promise<CommerceResponse> 
 
   sendCommerce: (data: CommerceRequest) => Promise<AxiosResponse<CommerceResponse>> 
+
+  getCommerces(): Promise<ListcommerceResponse>
   
 }
 
@@ -31,7 +33,7 @@ export class Commerce implements ICommerce {
     phoneNum?: string,
     typeService?: string,
   ): Promise<CommerceResponse> {
-    let route = `${this.url}/files/byAllData`;
+    let route = `${this.url}/filesd/byAllData`;
   
     const queryParams: Record<string, any> = {
       names,
@@ -57,5 +59,10 @@ export class Commerce implements ICommerce {
   sendCommerce(data: CommerceRequest): Promise<AxiosResponse<CommerceResponse>> {
     const route = `${this.url}/files/uploads`
     return http.post(route, data)
+  }
+
+  getCommerces(): Promise<ListcommerceResponse> {
+    const route = `${this.url}/commerces`
+    return http.get(route)
   }
 }

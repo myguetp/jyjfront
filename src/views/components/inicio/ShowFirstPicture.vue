@@ -4,7 +4,7 @@
       <Slide v-for="file in pictures" :key="file.alt">
         <div class="flex w-full">
           <img :src="file.src" :alt="file.alt" />
-          <p class="absolute bottom-0 left-0 bg-black text-white p-2">
+          <p class="absolute bottom-0 left-0 bg-black text-white p-2 shadow-xl">
             {{ file.text }}
           </p>
         </div>

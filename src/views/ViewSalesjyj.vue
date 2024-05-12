@@ -160,7 +160,7 @@ export default defineComponent({
     </section>
     <Modaljyj :isOpen="modalMap" @update:is-open="modalMap = $event" titulo="COMPLEXES">
       <div>
-        <p>hola</p>
+        <p>hola ita</p>
       </div>
     </Modaljyj>
   </MainLayout>
