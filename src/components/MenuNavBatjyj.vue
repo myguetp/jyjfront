@@ -103,8 +103,8 @@ export default defineComponent({
           >
             Contacto
           </div>
-          <div
-            @click="router.push({ name: 'Advertisements' })"
+                   <div
+            @click="router.push({ name: 'Leases' })"
             class="font-bold text-lg cursor-pointer"
             activeClass="rounded-md bg-gray-200 p-5"
             exact
@@ -112,28 +112,21 @@ export default defineComponent({
             Anuncios
           </div>
           <div
-            @click="router.push({ name: 'Leases' })"
-            class="font-bold text-lg cursor-pointer"
-            activeClass="rounded-md bg-gray-200 p-5"
-            exact
-          >
-            Arriendos
-          </div>
-          <div
             @click="router.push({ name: 'Sales' })"
             class="font-bold text-lg cursor-pointer"
             activeClass="rounded-md bg-gray-200 p-5"
             exact
           >
-            Ventas
+            Inmuebles
           </div>
-          <div v-show="sessionStart === null" class="cursor-pointer" @click="openModal">
-            <p v-show="sessionStart === null" class="font-bold text-lg">Ingresar</p>
-          </div>
+         
         </nav>
       </div>
 
-      <div v-show="sessionStart === null" class="flex gap-4 mt-2 pr-8">
+      <div v-show="sessionStart === null" class="flex gap-4 mt-2 pr-8 items-center">
+        <div v-show="sessionStart === null" class="cursor-pointer border-2 border-black hover:bg-slate-400" @click="openModal">
+            <p v-show="sessionStart === null" class="font-bold text-lg p-4">Ingresar</p>
+          </div>
         <div class="cursor-pointer" @click="router.push({ name: 'SalesLeases' })">
           <TheButtonjyjVue class="text-white" texto="Publica gratis" />
         </div>
@@ -191,18 +184,13 @@ export default defineComponent({
         </div>
       </div>
       <div>
-        <div @click="router.push({ name: 'Contact' })" class="font-bold text-lg cursor-pointer">
+        <div   @click="router.push({ name: 'Leases' })" class="font-bold text-lg cursor-pointer">
           Anuncios
         </div>
       </div>
       <div>
-        <div @click="router.push({ name: 'Contact' })" class="font-bold text-lg cursor-pointer">
-          Arriendos
-        </div>
-      </div>
-      <div>
-        <div @click="router.push({ name: 'Contact' })" class="font-bold text-lg cursor-pointer">
-          Ventas
+        <div @click="router.push({ name: 'Sales' })" class="font-bold text-lg cursor-pointer">
+          Inmuebles
         </div>
       </div>
       <div v-show="sessionStart === null" class="cursor-pointer" @click="openModal">

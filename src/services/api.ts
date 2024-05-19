@@ -88,10 +88,10 @@ export class Api {
     age?: string,
     parking?: string,
     property?: string,
-    minPrice?: number,
-    maxPrice?: number,
-    minArea?: number,
-    maxArea?: number): Promise<SalesResponse> {
+    minPrice?: string,
+    maxPrice?: string,
+    minArea?: string,
+    maxArea?: string): Promise<SalesResponse> {
     return this.isSales.getSales(stratum, room, restroom, age, parking, property, minPrice, maxPrice, minArea, maxArea )
   }
 

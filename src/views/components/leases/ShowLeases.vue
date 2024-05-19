@@ -70,7 +70,7 @@ export default defineComponent({
     },
     pictureWidth: {
       type: String,
-      default: "max-content",
+      default: "250px",
     },
     pictureHeight: {
       type: String,

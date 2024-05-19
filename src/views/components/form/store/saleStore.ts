@@ -1,6 +1,13 @@
 import type { RoomResponse, SalesResponse } from '@/services/response'
 import { defineStore } from 'pinia'
 
+
+export interface FileObject {
+  originalname: string;
+  filename: string;
+  mimetype: string;
+  size: number;
+}
 export const useSaleStore = defineStore('appStoreSales', {
   state: () => ({
     prueba: <string>'',
@@ -19,7 +26,8 @@ export const useSaleStore = defineStore('appStoreSales', {
     area: 0 as number,
     description: '' as string,
     parking: '' as string,
-    allDatasSales: <SalesResponse>{} 
+    allDatasSales: <SalesResponse>{}, 
+    files: [] as FileObject[]
 
   })
 })

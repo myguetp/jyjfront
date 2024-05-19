@@ -10,10 +10,10 @@ export interface ISales {
     age?: string,
     parking?: string,
     property?: string,
-    minPrice?: number,
-    maxPrice?: number,
-    minArea?: number,
-    maxArea?: number) => Promise<SalesResponse>
+    minPrice?: string,
+    maxPrice?: string,
+    minArea?: string,
+    maxArea?: string) => Promise<SalesResponse>
 
   putSales: (data: SalesRequest) => Promise<AxiosResponse<SalesResponse>>
 
@@ -34,10 +34,10 @@ export class Sales implements ISales {
     age?: string,
     parking?: string,
     property?: string,
-    minPrice?: number,
-    maxPrice?: number,
-    minArea?: number,
-    maxArea?: number
+    minPrice?: string,
+    maxPrice?: string,
+    minArea?: string,
+    maxArea?: string
   ): Promise<SalesResponse> {
     let route = `${this.url}/sales/byAllData`;
   
