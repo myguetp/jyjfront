@@ -8,6 +8,8 @@ import { useQuerySales } from './components/sales/useQuerySales'
 import TheButtonjyj from '../components/TheButtonjyj.vue'
 import Modaljyj from '../components/Modaljyj.vue'
 import { useSaleStore } from './components/form/store/saleStore'
+import type { FileObject } from './components/form/store/saleStore'
+
 
 export default defineComponent({
   components: {
@@ -19,25 +21,6 @@ export default defineComponent({
   },
   setup() {
     const { data: allsales } = useQuerySales()
-
-    const pictures = [
-      {
-        src: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg',
-        alt: 'file 2'
-      },
-      {
-        src: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg',
-        alt: 'file 3'
-      },
-      {
-        src: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg',
-        alt: 'file 4'
-      },
-      {
-        src: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg',
-        alt: 'file 5'
-      }
-    ]
 
     const router = useRouter()
 
@@ -59,7 +42,8 @@ export default defineComponent({
       administration: string,
       area: number,
       description: string,
-      parking: string
+      parking: string,
+      files: FileObject[]
     ) => {
       storeSale.$patch({ ofert: ofert })
       storeSale.$patch({ neighborhood: neighborhood })
@@ -75,6 +59,7 @@ export default defineComponent({
       storeSale.$patch({ area: area })
       storeSale.$patch({ description: description })
       storeSale.$patch({ parking: parking })
+      storeSale.$patch({ files: files })
       router.push({ name: 'InfoSummary' })
     }
 
@@ -83,7 +68,6 @@ export default defineComponent({
     }
 
     return {
-      pictures,
       allsales,
       router,
       openMap,
@@ -107,7 +91,7 @@ export default defineComponent({
             v-for="sales in allsales?.data ?? []"
             :key="sales._id ?? 0"
             :city="sales.city ?? ''"
-            :pictures="pictures"
+            :pictures="sales.files.map(file => ({ src: `http://localhost:3001/uploads/${file.filename}`, alt: file.originalname}))"
             :containerWidth="'350px'"
             :carouselItemsToShow="0.5"
             :price="sales.price ?? 0"
@@ -153,6 +137,7 @@ export default defineComponent({
               sales.area,
               sales.description,
               sales.parking,
+              sales.files
               )"
           />
         </div>

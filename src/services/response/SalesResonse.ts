@@ -19,11 +19,11 @@ export interface SalesResponse {
   city: string;
   property: string;
   stratum: string;
-  price: number;
+  price: string;
   room: string;
   restroom: string;
   age: string;
   administration: string;
-  area: number;
+  area: string;
   description: string;
 }

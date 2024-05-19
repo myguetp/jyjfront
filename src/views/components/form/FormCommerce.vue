@@ -78,9 +78,6 @@
               />
             </div>
   
-            
-            
-            <!-- <button type="submit">Guardar</button> -->
             <TheButtonjyj class="text-white font-bold" texto="Guardar" type="submit" />
           </div>
         </section>
@@ -97,6 +94,7 @@ import { useQueryCommercesData } from "../../../composable/leases/commerceCompos
 import Multiselect from "@vueform/multiselect";
 
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
 const MAX_FILES = 12;
 
@@ -111,6 +109,7 @@ const formData = ref({
 });
 
 const { data: commercesData, isLoading: commercesLoading } = useQueryCommercesData();
+const router = useRouter()
 
 
 const submitForm = async () => {
@@ -137,7 +136,13 @@ const submitForm = async () => {
       },
     });
 
-    console.log(response.data);
+    if (response.status === 201) {
+      alert('¡Correcto! El recurso se creó exitosamente.');
+      return router.push({ name: 'Leases' })
+    } else {
+      console.log('La solicitud no se completó correctamente.');
+    }
+
   } catch (error) {
     console.error('Error submitting form:', error);
   }

@@ -42,6 +42,7 @@ import type { PropType } from "vue";
 import TheButtonjyj from "../../../components/TheButtonjyj.vue";
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+import type { FileObject } from "../form/store/saleStore";
 
 export default defineComponent({
   components: {
@@ -70,7 +71,7 @@ export default defineComponent({
     },
     pictureWidth: {
       type: String,
-      default: "max-content",
+      default: "250px",
     },
     pictureHeight: {
       type: String,
@@ -99,6 +100,10 @@ export default defineComponent({
     propertyType: {
       type: String,
       required: true,
+    },
+    files: {
+      type: Array as PropType<FileObject[]>, // Cambio en el tipo de files
+      default: () => [], // Valor predeterminado como un array vacío
     },
   },
   emits: ["click"],

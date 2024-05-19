@@ -1,39 +1,28 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import MainLayout from "../layouts/MainLayout.vue";
 import TheButtonjyjVue from "../components/TheButtonjyj.vue";
 import { useSaleStore } from "./components/form/store/saleStore";
 import ShowFirstPicture from "./components/inicio/ShowFirstPicture.vue";
+// import type Modaljyj from "./components/Modaljyj.vue";
+import Modaljyj from "../components/Modaljyj.vue"
+
+
 
 
 export default defineComponent({
-   components: { MainLayout, TheButtonjyjVue, ShowFirstPicture,  },
+   components: { MainLayout, TheButtonjyjVue, ShowFirstPicture, Modaljyj },
   setup() {
     const storeSale = useSaleStore()
-    const pictures = [
-      {
-        src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
-        alt: "file 2",
-        text: "hola yoo",
-      },
-      {
-        src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg",
-        alt: "file 3",
-        text: "que",
-      },
-      {
-        src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg",
-        alt: "file 4",
-        text: "mas",
-      },
-      {
-        src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg",
-        alt: "file 5",
-        text: "chao",
-      },
-    ];
 
-    return { storeSale, pictures };
+    const modalContact = ref(false)
+
+
+    const openContact = () => {
+      modalContact.value = true
+    }
+
+    return { storeSale, modalContact, openContact };
   },
 });
 </script>
@@ -49,9 +38,10 @@ export default defineComponent({
       </div>
     </section>
     <div class="flex mt-8 justify-center gap-8">
-      <div>
+      <div class="bg-red-500">
 
-    <ShowFirstPicture :pictures="pictures" />
+        
+    <ShowFirstPicture :pictures="storeSale.files.map(file => ({ src: `http://localhost:3001/uploads/${file.filename}`, alt: file.originalname}))" />
       </div>
     <section class="flex ">
     <div class="justify-center rounded-md drop-shadow-md border border- border-gray-500">
@@ -87,7 +77,7 @@ export default defineComponent({
         </div>       
         </div>
         <div class="p-6">
-          <TheButtonjyjVue class="text-white" texto="Contactame" />
+          <TheButtonjyjVue class="text-white" texto="Contactame" @click="openContact"  />
           <div class="flex rounded border border- border-gray-500 w-72 mt-2 justify-between items-center">
           <span class="font-thin p-4">Valor administración</span>
           <p class="p-4 font-bold"> $ {{ storeSale.administration }}</p>
@@ -102,7 +92,11 @@ export default defineComponent({
     </div>
     </section>
     </div>
-
+     <Modaljyj :isOpen="modalContact" @update:is-open="modalContact = $event" titulo="COMPLEXES">
+      <div class="p-6">
+        <p>Si te encuentras interesado en este inmueble y quieres que se pongan en contacto con tigo escribe tus datos</p>
+      </div>
+    </Modaljyj>
     
   </MainLayout>
 </template>

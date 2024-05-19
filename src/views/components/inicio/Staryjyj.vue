@@ -10,6 +10,7 @@ import IconLinkedin from "../../../components/icons/IconLinkedin.vue";
 import IconThreads from "../../../components/icons/IconThreads.vue";
 import IconTikTok from "../../../components/icons/IconTikTok.vue";
 import ShowFirstPicture from "./ShowFirstPicture.vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   components: {
@@ -25,6 +26,8 @@ export default defineComponent({
   },
   setup() {
     const apiData = ref([]);
+    const router = useRouter()
+
     const pictures = [
       {
         src: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
@@ -50,7 +53,7 @@ export default defineComponent({
 
     onMounted(() => {});
 
-    return { apiData, pictures };
+    return { apiData, pictures, router };
   },
 });
 </script>
@@ -66,7 +69,7 @@ export default defineComponent({
           <h2 class="text-[32px] lg:text-[40px] font-bold">y/o edificioresidencial</h2>
           <p>Diseñamos y desarrollamos las apps siempre pensando en los propietarios</p>
           <div class="mt-4 font-bold">
-            <TheButtonjyj texto="Trabajemos juntos" />
+            <TheButtonjyj texto="Trabajemos juntos" :tamanio="'lg'" class="text-white" @click="router.push({ name: 'Complexes' })"/>
           </div>
         </div>
         <div class="hidden lg:block mt-60">
