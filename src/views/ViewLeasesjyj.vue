@@ -36,6 +36,12 @@ export default {
             :phoneNum="commerce.phoneNum"
             :typeService="commerce.typeService"
             :pictures="commerce.files.map(file => ({ src: `http://localhost:3001/uploads/${file.filename}`, alt: file.originalname}))"
+            @click="summaryInfo(
+              commerce.ofert,
+              sales.neighborhood,
+              sales.city,
+              sales.country
+              )"
           />
         </template>
       </div>

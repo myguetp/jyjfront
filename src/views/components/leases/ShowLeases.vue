@@ -52,7 +52,7 @@ export default defineComponent({
     Navigation,
   },
   props: {
-      pictures: {
+    pictures: {
       type: Array as PropType<{ src: string; alt: string }[]>,
       required: true,
     },
@@ -100,7 +100,6 @@ export default defineComponent({
   },
   emits: ["click"],
   setup(props, { emit }) {
-    console.log('pro', props.pictures);
     const OnClick = () => emit("click");
 
     return { OnClick, props };

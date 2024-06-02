@@ -3,7 +3,7 @@ import { defineComponent, ref } from 'vue'
 import { RouterView, useRouter } from 'vue-router'
 import TheButtonjyjVue from '../components/TheButtonjyj.vue'
 import Modaljyj from './Modaljyj.vue'
-import AuthService from '../../src/services/AuthService'
+import AuthService, { AuthError } from '../../src/services/AuthService'
 import IconBurguerVue from './icons/IconBurguer.vue'
 import { useHttpStore } from '../services/store/httpstore'
 import { toast } from 'vue3-toastify'
@@ -40,21 +40,30 @@ export default defineComponent({
     let password = ref('')
 
     const authUser = async () => {
-      const auth = new AuthService()
-      const success = await auth.login(email.value, password.value)
-      if (success) {
-        router.push({ name: 'Select' })
+    const auth = new AuthService();
+    try {
+    const success = await auth.login(email.value, password.value);
+    if (success) {
+      router.push({ name: 'Select' });
 
-        toast('Ingreso exitoso', {
-          delay: 50000,
-          rtl: true,
-        });
-      } else {
-        toast('Intente nuevamente', {
-          delay: 50000,
-          rtl: true,
-        });
-      }
+      toast('Ingreso exitoso', {
+        delay: 1000,
+        rtl: true,
+      });
+    }
+    } catch (error) {
+    if (error instanceof AuthError && error.status === 400) {
+      toast('Credenciales incorrectas, por favor intente nuevamente', {
+        delay: 1000,
+        rtl: true,
+      });
+    } else {
+      toast('Intente nuevamente', {
+        delay: 1000,
+        rtl: true,
+      });
+    }
+    }
     }
 
     return {
@@ -124,9 +133,10 @@ export default defineComponent({
       </div>
 
       <div v-show="sessionStart === null" class="flex gap-4 mt-2 pr-8 items-center">
-        <div v-show="sessionStart === null" class="cursor-pointer border-2 border-black hover:bg-slate-400" @click="openModal">
-            <p v-show="sessionStart === null" class="font-bold text-lg p-4">Ingresar</p>
-          </div>
+        <div v-show="sessionStart === null" @click="openModal">
+          <div v-show="sessionStart === null" class="cursor-pointer" @click="openModal">
+        <TheButtonjyjVue class="text-white bg-green-400" texto="Ingresar" :tamanio="'sm'" />
+      </div>          </div>
         <div class="cursor-pointer" @click="router.push({ name: 'SalesLeases' })">
           <TheButtonjyjVue class="text-white" texto="Publica gratis" />
         </div>
@@ -194,7 +204,7 @@ export default defineComponent({
         </div>
       </div>
       <div v-show="sessionStart === null" class="cursor-pointer" @click="openModal">
-        <p class="font-bold text-lg">Ingresar</p>
+        <TheButtonjyjVue class="text-white bg-green-400" texto="Ingresar" :tamanio="'sm'" />
       </div>
       <div v-show="sessionStart === null" class="cursor-pointer" @click="router.push({ name: 'SalesLeases' })">
         <TheButtonjyjVue class="text-white" texto="Publica gratis" :tamanio="'sm'" />
@@ -226,7 +236,7 @@ export default defineComponent({
             <a class="font-bold text-sm cursor-pointer">¿Olvidó su contraseña?</a>
           </div>
           <div class="flex justify-center mt-4">
-            <TheButtonjyjVue texto="Ingresar" class="text-white" @click="authUser" />
+            <TheButtonjyjVue texto="Enviar" class="text-white" @click="authUser" />
           </div>
         </div>
       </div>

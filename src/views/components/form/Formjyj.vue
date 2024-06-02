@@ -15,8 +15,7 @@
                 ofertData?.data.map((ofert) => ({
                   value: ofert.id,
                   label: ofert.name
-                }))
-              "
+                }))"
               class="h-[68px] rounded-md"
               placeholder="Tipo de oferta"
             />
@@ -31,8 +30,7 @@
                   propertyData?.data.map((property) => ({
                     value: property.id,
                     label: property.name
-                  }))
-                "
+                  }))"
                 class="h-[68px] rounded-md"
                 placeholder="Tipo de inmueble"
               />
@@ -47,8 +45,7 @@
                   restromData?.data.map((restroom) => ({
                     value: restroom.id,
                     label: restroom.name
-                  }))
-                "
+                  }))"
                 class="h-[68px] rounded-md"
                 placeholder="Número de baños"
               />
@@ -119,6 +116,7 @@
                 placeholder="Antiguedad del inmueble"
               />
             </div>
+       
           </div>
           <div class="block w-full lg:w-[30%] lg:ml-4">
             <FlowInput
@@ -128,22 +126,34 @@
               placeholder="Precio"
             />
             <FlowInput
-              id="neighborhood"
-              v-model="formData.neighborhood"
-              class="w-full h-[68px] mt-2 rounded-md"
-              placeholder="Barrio"
-            />
-            <FlowInput
-              id="city"
-              v-model="formData.city"
-              class="w-full h-[68px] mt-2 rounded-md"
-              placeholder="Ciudad"
-            />
-            <FlowInput
               id="country"
               v-model="formData.country"
               class="w-full h-[68px] mt-2 rounded-md"
               placeholder="País"
+              disabled
+            />
+            <div class="mt-4">
+              <div v-if="cityLoading" class="loading-indicator">Cargando datos...</div>
+
+              <Multiselect
+                id="city"
+                v-model="formData.city"
+                :options="
+                  cityData?.data[2]?.city.map((city) => ({
+                    value: city.id,
+                    label: city.name
+                  }))"
+                class="h-[28px] rounded-md mulitselectinfo"
+                placeholder="Ciudad"
+                :style="{ backgroundColor: 'transparent', border: '1px solid transparent' }"
+                searchable    
+              />
+            </div>
+            <FlowInput
+              id="neighborhood"
+              v-model="formData.neighborhood"
+              class="w-full h-[68px] mt-2 rounded-md"
+              placeholder="Barrio"
             />
             <FlowInput
               id="administration"
@@ -173,21 +183,22 @@
           </div>
 
           <div class="block w-full lg:w-[40%] ml-4">
-            <div class="block w-full mt-10">
-              <label for="fileUpload" class="custom-file-upload cursor-pointer">
-                Subir Archivos
-              </label>
-              <p class="mt-4">Maximo de 12 imagenes</p>
-              <input
-                id="fileUpload"
-                type="file"
-                multiple
-                @change="handleFileUpload"
-                style="display: none"
-              />
-              <div id="imagePreview" class="mt-4 flex flex-wrap"></div>
-            </div>
-            <div class="mt-4">
+          <div class="block w-full mt-10 border-dashed border-x-2 border-gray-500 p-4 relative">
+            <label for="fileUpload" class="custom-file-upload cursor-pointer font-bold">
+              Subir Archivos
+            </label>
+            <p class="mt-4">Máximo de 12 imágenes</p>
+            <input
+              id="fileUpload"
+              type="file"
+              multiple
+              @change="handleFileUpload"
+              style="display: none"
+            />
+            <div id="imagePreview" class="mt-4 flex flex-wrap h-40"></div>
+          </div>
+
+          <div class="mt-8">
               <FlowTexarea
                 v-model="formData.description"
                 class="w-full h-[280px] rounded-md resize-none"
@@ -195,11 +206,13 @@
                 label=""
               />
             </div>
+
+          <div class="block justify-center lg:justify-end pb-4 mt-1">
+            <TheButtonjyj class="text-white font-bold" texto="Guardar" type="submit" />
           </div>
+        </div>
+        
         </section>
-      </div>
-      <div class="flex justify-center lg:justify-end pb-4">
-        <TheButtonjyj class="text-white font-bold" texto="Guardar" type="submit" />
       </div>
     </form>
   </section>
@@ -220,6 +233,7 @@ import { useQueryPropertyData } from '../../../composable/leases/propertyComposa
 import { useQueryAntiquityData } from '../../../composable/leases/antiquityComposable'
 import { useQueryParkingData } from '../../../composable/leases/parkingComposable'
 import { useQueryOferData } from '../../../composable/leases/oferComposable'
+import { useQueryCityData } from '@/composable/leases/cityComposable'
 
 const MAX_FILES = 12
 
@@ -230,7 +244,7 @@ const formData = ref({
   flower: '',
   neighborhood: '',
   city: '',
-  country: '',
+  country: 'Colombia',
   property: '',
   stratum: '',
   price: '',
@@ -251,7 +265,7 @@ const { data: propertyData, isLoading: propertyLoading } = useQueryPropertyData(
 const { data: antiquiyData, isLoading: antiquityLoading } = useQueryAntiquityData()
 const { data: parkingData, isLoading: parkingLoading } = useQueryParkingData()
 const { data: ofertData, isLoading: ofertLoading } = useQueryOferData()
-// const { data: cityData, isLoading: cityLoading } = useQueryCityData()
+const { data: cityData, isLoading: cityLoading } = useQueryCityData()
 const router = useRouter()
 
 
@@ -379,4 +393,5 @@ input[type='file'] {
 .multiselect {
   border-radius: 20px !important;
 }
+
 </style>

@@ -2,8 +2,8 @@
   <div class="w-auto lg:w-[700px] relative">
     <Carousel id="gallery" :items-to-show="1" :wrap-around="false" v-model="currentSlide">
       <Slide v-for="file in pictures" :key="file.alt">
-        <div class="flex w-full">
-          <img :src="file.src" :alt="file.alt" />
+        <div class="flex w-full h-full relative">
+          <img :src="file.src" :alt="file.alt" class="object-cover w-full h-[500px]" />
           <p class="absolute bottom-0 opacity-40 left-0 bg-black text-white p-2 shadow-xl">
             {{ file.text }}
           </p>
@@ -19,7 +19,7 @@
     >
       <Slide v-for="file in pictures" :key="file.alt">
         <div class="carousel__item" @click="slideTo(pictures.indexOf(file))">
-          <img :src="file.src" :alt="file.alt" />
+          <img :src="file.src" :alt="file.alt" class="object-cover w-full h-36" />
         </div>
       </Slide>
     </Carousel>
@@ -59,3 +59,11 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.carousel__item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+</style>
