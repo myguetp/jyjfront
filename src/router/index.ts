@@ -15,14 +15,6 @@ const router = createRouter({
       component: ViewIniciojyj
     },
     {
-      path: '/Advertisements',
-      name: 'Advertisements',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/ViewAdvertisementsjyj.vue')
-    },
-    {
       path: '/Us',
       name: 'Us',
       // route level code-splitting
@@ -128,6 +120,19 @@ const router = createRouter({
       props: true
     },
     {
+      path: '/RestorePassword',
+      name: 'RestorePassword',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/ViewRestorePasswordjyj.vue'),
+      props: true
+    },
+    /**
+     * Complexes 
+     * 
+     * */
+    {
       path: '/Complexes',
       name: 'Complexes',
       // route level code-splitting
@@ -136,6 +141,7 @@ const router = createRouter({
       component: () => import('../views/complexes/ViewComplexes.vue'),
       props: true
     },
+    
 
   ]
 })

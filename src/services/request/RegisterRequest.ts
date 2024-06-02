@@ -1,4 +1,4 @@
-import type { SalesRequest } from "."
+// import type { SalesRequest } from "."
 
 export interface RegisterRequest {
   name: string
@@ -7,5 +7,6 @@ export interface RegisterRequest {
   phone: string
   email: string
   password: string
-  sales: SalesRequest
+  termsConditions: boolean
+  // sales: SalesRequest
 }

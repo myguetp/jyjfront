@@ -5,10 +5,10 @@
   >
     <div class="w-full">
       <carousel :items-to-show="carouselItemsToShow">
-        <slide class="w-full" v-for="(file, index) in pictures" :key="index">
+        <slide class="w-full" v-for="(picture, index) in pictures" :key="index">
           <img
-            :src="file.src"
-            :alt="file.alt"
+            :src="picture.src"
+            :alt="picture.alt"
             :style="{ width: pictureWidth, height: pictureHeight }"
           />
         </slide>
@@ -42,7 +42,6 @@ import type { PropType } from "vue";
 import TheButtonjyj from "../../../components/TheButtonjyj.vue";
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
-import type { FileObject } from "../form/store/saleStore";
 
 export default defineComponent({
   components: {
@@ -100,10 +99,6 @@ export default defineComponent({
     propertyType: {
       type: String,
       required: true,
-    },
-    files: {
-      type: Array as PropType<FileObject[]>, // Cambio en el tipo de files
-      default: () => [], // Valor predeterminado como un array vacío
     },
   },
   emits: ["click"],

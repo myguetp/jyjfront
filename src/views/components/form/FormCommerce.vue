@@ -25,7 +25,7 @@
             </div>
             <div class="block w-full mt-10 pt-4">
               <FlowInput
-                id="maill"
+                id="mail"
                 type="email"
                 v-model="formData.maill"
                 class="w-full h-[68px] mt-2 rounded-md"
@@ -41,28 +41,61 @@
                 placeholder="Número de Teléfono"
               />
             </div>
-          </div>
-          <div class="block w-full mt-10">
-            <label for="fileUpload" class="custom-file-upload cursor-pointer">
-              Subir Archivos 
-            </label>
-            <p class="mt-4">Maximo de 12 imagenes</p>
-            <input id="fileUpload" type="file" multiple @change="handleFileUpload" style="display: none;" />
-            <div id="imagePreview" class="mt-4 flex flex-wrap"></div>
+            <div class="block w-full mt-10 pt-4">
+              <FlowInput
+                id="country"
+                type="text"
+                v-model="formData.country"
+                class="w-full h-[68px] mt-2 rounded-md"
+                placeholder="País"
+                disabled
+              />
             </div>
+          </div>
+          <div class="block w-full mt-10 border-dashed border-x-2 border-gray-500 p-4">
+            <label for="fileUpload" class="custom-file-upload cursor-pointer font-bold">
+              Subir Archivos
+            </label>
+            <p class="mt-4">Máximo de 12 imágenes</p>
+            <input
+              id="fileUpload"
+              type="file"
+              multiple
+              @change="handleFileUpload"
+              style="display: none"
+            />
+            <div id="imagePreview" class="mt-4 flex flex-wrap h-40"></div>
+          </div>
+          
+
           <div class="block w-full">
-            <label for="typeService">Tipo de Servicio:</label>
             <!-- <input id="typeService" type="text" v-model="formData.typeService" required /> -->
+            <div class="mt-2">
+              <div v-if="cityLoading" class="loading-indicator">Cargando datos...</div>
+
+              <Multiselect
+                id="city"
+                v-model="formData.city"
+                :options="
+                  cityData?.data[2]?.city.map((city) => ({
+                    value: city.id,
+                    label: city.name
+                  }))
+                "
+                class="h-[68px] rounded-md"
+                placeholder=""
+              />
+            </div>
             <div class="mt-2">
               <div v-if="commercesLoading" class="loading-indicator">Cargando datos...</div>
 
               <Multiselect
-                id="typeService"
+                id="typeServiceSelect"
                 v-model="formData.typeService"
                 :options="
-                commercesData?.data.map((comerc) => ({
+                  commercesData?.data.map((comerc) => ({
                     value: comerc.id,
-                    label: comerc.name,
+                    label: comerc.name
                   }))
                 "
                 class="h-[68px] rounded-md"
@@ -77,7 +110,7 @@
                 placeholder="Descripción del inmueble"
               />
             </div>
-  
+
             <TheButtonjyj class="text-white font-bold" texto="Guardar" type="submit" />
           </div>
         </section>
@@ -85,18 +118,18 @@
     </form>
   </section>
 </template>
-
 <script setup lang="ts">
-import { ref } from 'vue';
-import { Input as FlowInput, Textarea as FlowTexarea } from 'flowbite-vue';
-import TheButtonjyj from "../../../components/TheButtonjyj.vue";
-import { useQueryCommercesData } from "../../../composable/leases/commerceComposable";
-import Multiselect from "@vueform/multiselect";
+import { ref } from 'vue'
+import { Input as FlowInput, Textarea as FlowTexarea } from 'flowbite-vue'
+import TheButtonjyj from '../../../components/TheButtonjyj.vue'
+import { useQueryCommercesData } from '../../../composable/leases/commerceComposable'
+import Multiselect from '@vueform/multiselect'
 
-import axios from 'axios';
-import { useRouter } from 'vue-router';
+import axios from 'axios'
+import { useRouter } from 'vue-router'
+import { useQueryCityData } from '@/composable/leases/cityComposable'
 
-const MAX_FILES = 12;
+const MAX_FILES = 12
 
 const formData = ref({
   names: '',
@@ -105,98 +138,102 @@ const formData = ref({
   phoneNum: '',
   typeService: '',
   descripton: '',
-  files: [] as File[],
-});
+  country: 'Colombia',
+  city: '',
+  files: [] as File[]
+})
 
-const { data: commercesData, isLoading: commercesLoading } = useQueryCommercesData();
+const { data: commercesData, isLoading: commercesLoading } = useQueryCommercesData()
+const { data: cityData, isLoading: cityLoading } = useQueryCityData()
+
 const router = useRouter()
-
 
 const submitForm = async () => {
   try {
-    const data = new FormData();
-    data.append('names', formData.value.names);
-    data.append('contact', formData.value.contact);
-    data.append('maill', formData.value.maill);
-    data.append('phoneNum', formData.value.phoneNum);
-    data.append('typeService', formData.value.typeService);
-    data.append('descripton', formData.value.descripton);
+    const data = new FormData()
+    data.append('names', formData.value.names)
+    data.append('contact', formData.value.contact)
+    data.append('maill', formData.value.maill)
+    data.append('phoneNum', formData.value.phoneNum)
+    data.append('typeService', formData.value.typeService)
+    data.append('descripton', formData.value.descripton)
+    data.append('country', formData.value.country)
+    data.append('city', formData.value.city)
     formData.value.files.forEach((file) => {
-      data.append('files', file);
-    });
+      data.append('files', file)
+    })
 
-    const apiUrl = 'http://localhost:3001/filesd/uploads';
+    const apiUrl = 'http://localhost:3001/filesd/uploads'
     if (!apiUrl) {
-      throw new Error('API URL not found in environment variables');
+      throw new Error('API URL not found in environment variables')
     }
 
     const response = await axios.post(apiUrl, data, {
       headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+        'Content-Type': 'multipart/form-data'
+      }
+    })
 
     if (response.status === 201) {
-      alert('¡Correcto! El recurso se creó exitosamente.');
+      alert('¡Correcto! El recurso se creó exitosamente.')
       return router.push({ name: 'Leases' })
     } else {
-      console.log('La solicitud no se completó correctamente.');
+      console.log('La solicitud no se completó correctamente.')
     }
-
   } catch (error) {
-    console.error('Error submitting form:', error);
+    console.error('Error submitting form:', error)
   }
-};
+}
 
 const handleFileUpload = (event: Event) => {
-  const target = event.target as HTMLInputElement;
+  const target = event.target as HTMLInputElement
   if (target.files) {
-    const newFiles = Array.from(target.files);
+    const newFiles = Array.from(target.files)
     if (formData.value.files.length + newFiles.length > MAX_FILES) {
       // Handle error (exceeds file limit)
-      console.error('Exceeded maximum file upload limit.');
-      return;
+      console.error('Exceeded maximum file upload limit.')
+      return
     }
-    formData.value.files.push(...newFiles.slice(0, MAX_FILES - formData.value.files.length));
-    updateImagePreview();
+    formData.value.files.push(...newFiles.slice(0, MAX_FILES - formData.value.files.length))
+    updateImagePreview()
   }
-};
+}
 
 const removeImage = (index) => {
-  formData.value.files.splice(index, 1);
-  updateImagePreview();
-};
+  formData.value.files.splice(index, 1)
+  updateImagePreview()
+}
 
 const updateImagePreview = () => {
-  const imagePreview = document.getElementById('imagePreview');
+  const imagePreview = document.getElementById('imagePreview')
   if (imagePreview) {
-    imagePreview.innerHTML = '';
+    imagePreview.innerHTML = ''
     formData.value.files.forEach((file, index) => {
-      const preview = document.createElement('img');
-      preview.src = URL.createObjectURL(file);
-      preview.style.maxWidth = '100px';
-      preview.style.marginRight = '10px';
+      const preview = document.createElement('img')
+      preview.src = URL.createObjectURL(file)
+      preview.style.maxWidth = '100px'
+      preview.style.marginRight = '10px'
       preview.addEventListener('click', () => {
-        removeImage(index);
-      });
-      imagePreview.appendChild(preview);
-    });
+        removeImage(index)
+      })
+      imagePreview.appendChild(preview)
+    })
   }
-};
+}
 </script>
 
 <style src="@vueform/multiselect/themes/default.css">
 #imagePreview img {
   max-width: 100px;
   margin-right: 10px;
-  transition: transform 0.3s ease;
+  transition: transform 0.10s ease;
 }
 
 #imagePreview img:hover {
-  transform: scale(2.2);
+  transform: scale(3.5);
 }
 
-input[type="file"] {
+input[type='file'] {
   display: none;
 }
 

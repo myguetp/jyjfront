@@ -1,13 +1,13 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { Input as FlowInput } from "flowbite-vue";
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
 
 import TheButtonjyjVue from "../../../components/TheButtonjyj.vue";
 import { useMutationSignup } from "./signUpMutation";
 
 export default defineComponent({
-  components: { FlowInput, TheButtonjyjVue, RouterLink, RouterView },
+  components: { FlowInput, TheButtonjyjVue, RouterView },
   setup() {
     const showPassword = ref(false);
   
@@ -17,6 +17,7 @@ export default defineComponent({
     let phone = ref("");
     let email = ref("");
     let password = ref("");
+    let termsConditions = ref(false);
 
     const { mutate } = useMutationSignup();
     const handleRegistration = async () => {
@@ -26,6 +27,7 @@ export default defineComponent({
         city: city.value,
         phone: phone.value,
         email: email.value,
+        termsConditions: termsConditions.value,
         password: password.value,
       });
     };
@@ -39,6 +41,7 @@ export default defineComponent({
       phone,
       email,
       handleRegistration,
+      termsConditions
     };
   },
 });
@@ -94,6 +97,11 @@ export default defineComponent({
             placeholder="Contraseña"
           />
 
+          <div class="flex items-center mt-4">
+          <input type="checkbox" id="termsConditions" v-model="termsConditions" />
+          <label for="termsConditions" class="ml-2">Acepto los términos y condiciones</label>
+        </div>
+
           <button
             @click="showPassword = !showPassword"
             class="absolute top-1/2 right-4 transform -translate-y-1/2 focus:outline-none"
@@ -104,13 +112,13 @@ export default defineComponent({
 
         <div class="flex gap-4 mt-6 w-full items-center justify-center">
           <RouterView>
-            <RouterLink to="/Select">
+            <!-- <RouterLink to="/Select"> -->
               <TheButtonjyjVue
                 class="text-white"
                 texto="Registrarse"
                 @click="handleRegistration"
               />
-            </RouterLink>
+            <!-- </RouterLink> -->
           </RouterView>
         </div>
       </form>

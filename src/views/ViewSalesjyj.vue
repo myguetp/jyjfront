@@ -80,7 +80,7 @@ export default defineComponent({
 </script>
 <template>
   <MainLayout>
-    <section class="block md:flex lg:flex p-1 gap-4 w-full lg:ml-24">
+    <section class="block md:flex lg:flex p-1 gap-4 w-full ">
       <div class="box-shadow p-2 w-[20%] h-auto">
         <TheButtonjyj class="bg-gray-300" texto="mapa" :tamanio="'sm'" @click="openMap" />
         <FilterSales />
